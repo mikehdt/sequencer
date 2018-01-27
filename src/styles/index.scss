@@ -1,0 +1,35 @@
+$black: #000;
+
+* {
+  &,
+  &::before,
+  &::after {
+    box-sizing: border-box;
+  }
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-size: 1.6rem;
+}
+
+canvas {
+  height: 100%;
+  width: 100%;
+}
+
+#canvas {
+  width: 100vw;
+  height: 56.25vw;
+  box-shadow: 0 0 0.3rem $black;
+}
