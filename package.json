@@ -12,8 +12,7 @@
     "lint:css": "stylelint \"src/**/*.{css,less,scss}\" --fix",
     "jest": "jest",
     "start": "webpack-dev-server --config webpack.dev.babel.js",
-    "build": "webpack --config webpack.prod.babel.js",
-    "kickstart": "node kickstarter"
+    "build": "webpack --config webpack.prod.babel.js"
   },
   "dependencies": {
     "clean-webpack-plugin": "^0.1.18",
@@ -48,9 +47,5 @@
     "stylelint-scss": "^2.2.0",
     "url-loader": "^0.6.2",
     "webpack-dev-server": "^2.11.1"
-  },
-  "kickstartDependencies": [
-    "inquirer",
-    "rimraf"
-  ]
+  }
 }
