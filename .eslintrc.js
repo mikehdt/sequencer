@@ -13,5 +13,7 @@ module.exports = {
   ],
   rules: {
     indent: ['error', 2],
+    'space-infix-ops': ['error'],
+    'import/prefer-default-export': 'off',
   },
 };

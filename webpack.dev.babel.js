@@ -2,6 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 module.exports = {
+  // mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   entry: './src/index.js',
   devServer: {
@@ -32,6 +33,7 @@ module.exports = {
             options: {
               sourceMap: true,
               modules: true,
+              localIdentName: '[name]-[local]-[hash:base64:5]',
             },
           },
           {
@@ -45,7 +47,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|mp3|mp4|m4a|ogg)$/,
         use: [
           {
             loader: 'url-loader',

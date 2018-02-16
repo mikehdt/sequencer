@@ -11,7 +11,7 @@ import UglifyJSPlugin from 'uglifyjs-webpack-plugin';
 const buildPath = path.resolve(__dirname, 'dist');
 
 module.exports = {
-  devtool: 'source-map',
+  // mode: 'production',
   entry: './src/index.js',
   output: {
     filename: '[name].[hash:20].js',
@@ -31,33 +31,34 @@ module.exports = {
       {
         test: /\.(scss|css)$/,
         use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
           use: [
             {
               loader: 'css-loader',
               options: {
-                sourceMap: true,
+                sourceMap: false,
+                modules: true,
+                localIdentName: '[hash:base64:5]',
               },
             },
             {
               loader: 'postcss-loader',
               options: {
-                sourceMap: true,
+                sourceMap: false,
               },
             },
             {
               loader: 'sass-loader',
               options: {
                 outputStyle: 'expanded',
-                sourceMap: true,
-                sourceMapContents: true,
+                sourceMap: false,
               },
             },
           ],
-          fallback: 'style-loader',
         }),
       },
       {
-        test: /\.(png|jpg|gif)$/,
+        test: /\.(png|jpg|gif|mp3)$/,
         use: [
           {
             loader: 'url-loader',
@@ -97,8 +98,10 @@ module.exports = {
     }),
     new UglifyJSPlugin({
       sourceMap: false,
-      output: {
-        comments: false,
+      uglifyOptions: {
+        output: {
+          comments: false,
+        },
       },
     }),
     new ExtractTextPlugin('styles.[contentHash].css', {

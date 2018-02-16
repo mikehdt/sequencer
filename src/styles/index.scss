@@ -1,4 +1,5 @@
 $black: #000;
+$white: #fff;
 
 * {
   &,
@@ -13,6 +14,7 @@ body {
   margin: 0;
   padding: 0;
   text-align: center;
+  background-color: $black;
 }
 
 html {
@@ -20,6 +22,10 @@ html {
 }
 
 body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
   font-size: 1.6rem;
 }
 
@@ -28,8 +34,21 @@ canvas {
   width: 100%;
 }
 
-#canvas {
-  width: 100vw;
-  height: 56.25vw;
-  box-shadow: 0 0 0.3rem $black;
+a {
+  color: $white;
+}
+
+.canvas {
+  width: calc(100vw - (100vw - 100%));
+  height: calc(56.25vw - ((100vw - 100%) / 56.25));
+  max-width: 128rem;
+  max-height: 72rem;
+  box-shadow: 0 0 0.3rem rgba($white, 0.3);
+}
+
+:global {
+  #root {
+    width: 100%;
+    min-height: 100vh;
+  }
 }
