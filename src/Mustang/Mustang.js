@@ -29,6 +29,10 @@ document.body.appendChild(linkEl);
 createStore();
 const testPlayer = new Player();
 
+document.getElementById('play').addEventListener('click', () => testPlayer.play());
+document.getElementById('pause').addEventListener('click', () => testPlayer.pause());
+document.getElementById('stop').addEventListener('click', () => testPlayer.stop());
+
 testPlayer.setAudio(audio);
 
 export { Mustang };

@@ -1,14 +1,16 @@
-import deepEqual from 'deep-equal';
+import { updatedDiff } from 'deep-object-diff';
 
 const global = window || document;
 
+// Nothing fancy, just a pure JS store with some simple up-to-two level ability
+// to subscribe to set changes.
 function createStore(initialState = {}) {
   const store = initialState;
   const subscribers = {};
+  const WATCHERS_KEY = '__watchers__';
 
   if (global.store) {
-    // eslint-disable-next-line no-console
-    console.error('A store already exists!');
+    console.error('The store has already been instantiated!'); // eslint-disable-line no-console
     return global.store;
   }
 
@@ -37,37 +39,72 @@ function createStore(initialState = {}) {
       return null;
     },
 
-    set: (element, newValue) => {
-      console.log(`setting "${element}" to`, newValue);
-      const oldValue = store[element];
-      const isEqual = deepEqual(oldValue, newValue);
+    set: (parentKey, newValue) => {
+      const oldValue = store[parentKey];
+      const diffKeys = Object.keys(updatedDiff(oldValue, newValue));
+      const elementSubscribers = subscribers[parentKey] || [];
 
-      if (!isEqual) {
-        store[element] = newValue;
+      if (diffKeys.length) {
+        store[parentKey] = newValue;
+      }
 
-        if (subscribers[element] && subscribers[element].length) {
-          subscribers[element].forEach((watcher) => {
-            const { watchFn } = watcher;
-            watchFn(newValue, oldValue);
-          });
+      Object.keys(elementSubscribers)
+        .filter(key => diffKeys.includes(key) && key !== WATCHERS_KEY)
+        .forEach((key) => {
+          elementSubscribers[key][WATCHERS_KEY]
+            .forEach((watcher) => {
+              watcher.watchFn(newValue && newValue[key], oldValue && oldValue[key]);
+            });
+        });
+
+      if (elementSubscribers[WATCHERS_KEY]) {
+        elementSubscribers[WATCHERS_KEY].forEach((watcher) => {
+          watcher.watchFn(newValue, oldValue);
+        });
+      }
+    },
+
+    subscribe: (props) => {
+      const {
+        watch,
+        key,
+        watchFn,
+        id = false,
+      } = props;
+
+      if (typeof subscribers[watch] === 'undefined') { subscribers[watch] = {}; }
+
+      if (key) {
+        if (typeof subscribers[watch][key] === 'undefined') {
+          subscribers[watch][key] = { [WATCHERS_KEY]: [] };
         }
+
+        subscribers[watch][key][WATCHERS_KEY].push({ id, watchFn });
+      } else {
+        if (typeof subscribers[watch][WATCHERS_KEY] === 'undefined') {
+          subscribers[watch][WATCHERS_KEY] = [];
+        }
+
+        subscribers[watch][WATCHERS_KEY].push({ id, watchFn });
       }
     },
 
-    getSubscribers: () => ({ ...subscribers }),
+    unsubscribe: (props) => {
+      const {
+        watch,
+        key,
+        id,
+      } = props;
 
-    subscribe: (watchFn, element, id = false) => {
-      if (typeof subscribers[element] === 'undefined') {
-        subscribers[element] = [];
+      if (key) {
+        subscribers[watch][key][WATCHERS_KEY] = (id)
+          ? subscribers[watch][key][WATCHERS_KEY].filter(watcher => watcher.id !== id)
+          : subscribers[watch][key][WATCHERS_KEY] = [];
+      } else {
+        subscribers[watch][WATCHERS_KEY] = (id)
+          ? subscribers[watch][WATCHERS_KEY].filter(watcher => watcher.id !== id)
+          : subscribers[watch][WATCHERS_KEY] = [];
       }
-
-      subscribers[element].push({ id, watchFn });
-    },
-
-    unsubscribe: (element, id = false) => {
-      subscribers[element] = (id !== false)
-        ? subscribers[element].filter(watcher => watcher.id !== id)
-        : subscribers[element] = [];
     },
   };
 
@@ -90,30 +127,10 @@ export {
 };
 
 
-// createStore({
-//   one: {
-//     test: 'hello',
-//   },
-//   two: {
-//     test: 'there',
-//   },
-//   three: {
-//     test: 'you',
-//   },
-// });
-
-// global.store = createStore({
-//   one: {
-//     two: {
-//       three: [{ four: 'hello' }],
-//     },
-//   },
-// });
-
 // const findThing = path => state => path.reduce((keys, searchItem) => (
 //   (keys && keys[searchItem])
 //     ? keys[searchItem]
 //     : null
 // ), state);
 
-// console.log(findThing(['one', 'two', 'three', 0, 'four'])(global.store.getState()));
+// console.log(findThing(['one', 'two', 'three'])(global.store.getState()));
