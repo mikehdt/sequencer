@@ -1,9 +1,24 @@
-import { Mustang } from './Mustang';
+function canvasElement (width = 1280, height = 720) {
+  const canvas = document.createElement('canvas');
 
-import styles from './styles/index.scss';
+  const resize = () => {
+    console.log('canvas was resized I guess');
+  };
 
-// -----
+  canvas.width = width;
+  canvas.height = height;
 
+  window.addEventListener('resize', () => requestAnimationFrame(resize));
+  resize();
+
+  return canvas;
+}
+
+export { canvasElement };
+
+// Keep here or split out?
+
+// Experiments with keeping canvas resized appropriately on redraw
 // const resizeCanvas = ctx => false;
 // if (ctx.canvas.scrollWidth !== ctx.canvas.width
 //   || ctx.canvas.scrollHeight !== ctx.canvas.height

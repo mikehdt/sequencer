@@ -1,5 +1,4 @@
 import { connectStore } from './Store';
-import { testEffect } from './Effects';
 
 const TIMELINE_VERSION = 1;
 
@@ -18,7 +17,7 @@ const setAnimation = (props) => {
     start,
     end,
     layer,
-    effect: testEffect(),
+    effect: () => {}, // tbc
     parameters,
   };
 
@@ -88,11 +87,11 @@ function Timeline() {
       ...isNew,
     ].sort(byLayer);
 
-    activeAnimations.forEach(item => testEffect().update({
-      ...commonTimeOffsets,
-      relative: time - item.start,
-      unitInterval: (time - item.start) / (item.end - item.start),
-    }));
+    // activeAnimations.forEach(item => [some effect].update({
+    //   ...commonTimeOffsets,
+    //   relative: time - item.start,
+    //   unitInterval: (time - item.start) / (item.end - item.start),
+    // }));
 
     prevTime = time;
   };

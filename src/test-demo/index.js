@@ -1,5 +1,6 @@
 import { Mustang } from '../Mustang';
-import audioFile from './song.mp3';
+import audioFile from './assets/song.mp3';
+import styles from '../styles/audio.scss';
 
 // Player
 const mustang = new Mustang();
@@ -33,15 +34,13 @@ const sequence = {
   ],
 };
 
-// Audio
-const audio = document.createElement('audio');
-audio.src = audioFile;
-audio.controls = true;
-audio.style.position = 'absolute';
-audio.style.width = '60rem';
-audio.style.left = 'calc(50% - 30rem)';
-audio.style.bottom = '3rem';
-document.body.appendChild(audio);
+// DOM
+const dom = helpers.dom('root');
+const audio = helpers.audioElement(audioFile, styles.audio);
+const canvas = helpers.canvasElement();
+
+dom.appendChild(audio);
+dom.appendChild(canvas);
 
 // Fullscreen
 const linkEl = document.createElement('a');

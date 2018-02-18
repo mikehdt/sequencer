@@ -2,7 +2,11 @@ import { createStore } from './Store';
 import { Player } from './Player';
 import { Timeline } from './Timeline';
 import { Effects } from './Effects';
+
 import { toggleFullScreen } from './helpers/fullscreen';
+import { dom } from './helpers/dom';
+import { audioElement } from './helpers/audio';
+import { canvasElement } from './helpers/canvas';
 
 // -----
 
@@ -18,7 +22,10 @@ function Mustang() {
     timeline,
     effects,
     helpers: {
+      dom,
       toggleFullScreen,
+      audioElement,
+      canvasElement,
     },
   };
 }

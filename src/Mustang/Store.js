@@ -62,6 +62,7 @@ function createStore(initialState = {}) {
     }
   };
 
+  // There is probably a better way to handle different depths of subscribers...
   const subscribeKey = (props) => {
     const {
       watch,
