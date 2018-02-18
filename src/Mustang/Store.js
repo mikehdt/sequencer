@@ -122,8 +122,7 @@ function connectStore() {
     return global.store;
   }
 
-  // eslint-disable-next-line no-console
-  console.error('Cannot connect to store, no store is available.');
+  console.error('Cannot connect to store, no store is available.'); // eslint-disable-line no-console
   return {};
 }
 

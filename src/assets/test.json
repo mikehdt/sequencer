@@ -1,19 +1,23 @@
 {
   "version": 1,
-  "libraries": [],
-  "animations": [
+  "effects": [
+  ],
+  "timeline": [
     {
-      "name": "thing",
-      "effect": "testEffect",
+      "id": "thing",
+      "effectId": "testEffect",
       "start": 0,
-      "end": 5,
-      "layer": 0
+      "end": 3,
+      "layer": 0,
+      "parameters": {
+        "cheese": "delicious"
+      }
     },
     {
-      "name": "other-thing",
-      "effect": "testEffect",
-      "start": 5,
-      "end": 10,
+      "id": "other-thing",
+      "effectId": "testEffect",
+      "start": 3,
+      "end": 25,
       "layer": 1
     }
   ]

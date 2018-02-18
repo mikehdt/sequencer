@@ -3,13 +3,13 @@ function testEffect() {
     color: 0xbeefed,
   };
 
-  function start() {}
+  function start() { console.log('effect start'); }
 
   function update(progress) {
-    console.log('progress', progress, parameters.color);
+    console.log('effect update', progress);
   }
 
-  function end() {}
+  function end() { console.log('effect end'); }
 
   return {
     parameters,

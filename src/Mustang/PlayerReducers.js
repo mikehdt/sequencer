@@ -1,7 +1,12 @@
 export const IS_PLAYING = 'player/is_playing';
 export const CURRENT_TIME = 'player/current_time';
 
-export const reduceState = (state, action) => {
+const defaultState = {
+  isPlaying: false,
+  currentTime: 0, // seconds (natural for <audio> elements)
+};
+
+export const reduceState = (state = defaultState, action = {}) => {
   switch (action.type) {
     case IS_PLAYING: {
       return {
