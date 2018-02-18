@@ -1,4 +1,4 @@
 import 'normalize.css/normalize.css';
+import './styles/index.scss';
 
-// import './index-sequencer';
-import './index-mustang';
+import './test-demo';

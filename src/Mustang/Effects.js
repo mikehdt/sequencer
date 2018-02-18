@@ -3,13 +3,13 @@ function testEffect() {
     color: 0xbeefed,
   };
 
-  function start() { console.log('effect start'); }
+  function start() {}
 
   function update(progress) {
     console.log('effect update', progress);
   }
 
-  function end() { console.log('effect end'); }
+  function end() {}
 
   return {
     parameters,
@@ -19,4 +19,8 @@ function testEffect() {
   };
 }
 
-export { testEffect };
+function Effects () {
+  console.log('I dunno mate')
+}
+
+export { Effects, testEffect };
