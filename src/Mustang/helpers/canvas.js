@@ -1,15 +1,16 @@
-function canvasElement (width = 1280, height = 720) {
+function canvasElement(width = 1280, height = 720) {
   const canvas = document.createElement('canvas');
 
-  const resize = () => {
-    console.log('canvas was resized I guess');
-  };
+  // const resize = () => {
+  //   console.log('canvas was resized I guess');
+  // };
 
   canvas.width = width;
   canvas.height = height;
+  canvas.classList.add('leCanvas');
 
-  window.addEventListener('resize', () => requestAnimationFrame(resize));
-  resize();
+  // window.addEventListener('resize', () => requestAnimationFrame(resize));
+  // resize();
 
   return canvas;
 }

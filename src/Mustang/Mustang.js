@@ -1,8 +1,10 @@
+// Core
 import { createStore } from './Store';
 import { Player } from './Player';
 import { Timeline } from './Timeline';
 import { Effects } from './Effects';
 
+// Helpers
 import { toggleFullScreen } from './helpers/fullscreen';
 import { dom } from './helpers/dom';
 import { audioElement } from './helpers/audio';

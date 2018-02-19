@@ -2,6 +2,8 @@ import { Mustang } from '../Mustang';
 import audioFile from './assets/song.mp3';
 import styles from '../styles/audio.scss';
 
+import { TestEffect } from './effects/testEffect';
+
 // Player
 const mustang = new Mustang();
 
@@ -10,29 +12,6 @@ const {
   timeline,
   helpers,
 } = mustang;
-
-const sequence = {
-  version: 1,
-  timeline: [
-    {
-      id: 'thing',
-      effectId: 'testEffect',
-      start: 0,
-      end: 3,
-      layer: 0,
-      parameters: {
-        cheese: 'delicious',
-      },
-    },
-    {
-      id: 'other-thing',
-      effectId: 'testEffect',
-      start: 3,
-      end: 25,
-      layer: 1,
-    },
-  ],
-};
 
 // DOM
 const dom = helpers.dom('root');
@@ -48,6 +27,30 @@ const linkElText = document.createTextNode('Fullscreen');
 linkEl.appendChild(linkElText);
 linkEl.addEventListener('click', () => helpers.toggleFullScreen(true));
 document.body.appendChild(linkEl);
+
+// Timeline
+const sequence = {
+  version: 1,
+  timeline: [
+    {
+      id: 'thing',
+      effect: new TestEffect({ canvas }),
+      start: 0,
+      end: 3,
+      layer: 0,
+      parameters: {
+        color: '#783456',
+      },
+    },
+    {
+      id: 'other-thing',
+      effect: new TestEffect({ canvas }),
+      start: 3,
+      end: 25,
+      layer: 1,
+    },
+  ],
+};
 
 timeline.parseData(sequence);
 timeline.update(0);

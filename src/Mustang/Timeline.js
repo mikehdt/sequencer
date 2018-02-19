@@ -8,7 +8,7 @@ const setAnimation = (props) => {
     start,
     end,
     layer,
-    // effectId,
+    effect,
     parameters,
   } = props || {};
 
@@ -17,7 +17,7 @@ const setAnimation = (props) => {
     start,
     end,
     layer,
-    effect: () => {}, // tbc
+    effect,
     parameters,
   };
 
@@ -80,18 +80,18 @@ function Timeline() {
 
     // Call effect constructors / destructors if they exist
     isFinished.forEach(item => item.effect.end && item.effect.end());
-    isNew.forEach(item => item.effect.start && item.effect.start());
+    isNew.forEach(item => item.effect.start && item.effect.start(item.parameters));
 
     activeAnimations = [
       ...isActive,
       ...isNew,
     ].sort(byLayer);
 
-    // activeAnimations.forEach(item => [some effect].update({
-    //   ...commonTimeOffsets,
-    //   relative: time - item.start,
-    //   unitInterval: (time - item.start) / (item.end - item.start),
-    // }));
+    activeAnimations.forEach(item => item.effect.update({
+      ...commonTimeOffsets,
+      relative: time - item.start,
+      unitInterval: (time - item.start) / (item.end - item.start),
+    }));
 
     prevTime = time;
   };

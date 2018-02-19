@@ -21,7 +21,7 @@ const exitFullscreen = (
 
 export const toggleFullScreen = (goFullScreen) => {
   if (typeof document === 'undefined' || typeof document.body === 'undefined') {
-    // Unsupported environment
+    console.warn('Fullscreen is not supported in this browser.'); // eslint-disable-line no-console
     return;
   }
 
