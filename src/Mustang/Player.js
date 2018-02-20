@@ -1,8 +1,28 @@
 import { connectStore } from './Store';
-import {
-  CURRENT_TIME,
-  reduceState,
-} from './PlayerReducers';
+
+// Action types
+export const CURRENT_TIME = 'player/current_time';
+
+// Reducers
+const defaultState = {
+  currentTime: 0, // seconds (natural for <audio> elements)
+};
+
+export const reduceState = (state = defaultState, action = {}) => {
+  switch (action.type) {
+    case CURRENT_TIME: {
+      return {
+        ...state,
+        currentTime: action.time,
+      };
+    }
+
+    default: {
+      return state;
+    }
+  }
+};
+
 
 // Notes / Todo:
 // * Some way to request current audio slice for effects to use as vis input?
