@@ -49,6 +49,16 @@ const sequence = {
       end: 25,
       layer: 1,
     },
+    {
+      id: 'last-thing',
+      effect: new TestEffect({ canvas }),
+      start: 25,
+      end: 96.2,
+      layer: 1,
+      parameters: {
+        color: '#c48431',
+      },
+    },
   ],
 };
 
@@ -58,8 +68,6 @@ timeline.update(0);
 // testStore.subscribe({ watch: 'player', key: 'currentTime', watchFn: val => console.log(val) });
 
 player.setAudio(audio);
-player.setIsPlaying(true);
-player.tick();
 
 document.getElementById('play').addEventListener('click', () => player.play());
 document.getElementById('pause').addEventListener('click', () => player.pause());

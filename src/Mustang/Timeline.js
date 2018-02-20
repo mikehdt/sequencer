@@ -80,7 +80,7 @@ function Timeline() {
 
     // Call effect constructors / destructors if they exist
     isFinished.forEach(item => item.effect.end && item.effect.end());
-    isNew.forEach(item => item.effect.start && item.effect.start(item.parameters));
+    isNew.forEach(item => item.effect.start && item.effect.start(item.parameters || {}));
 
     activeAnimations = [
       ...isActive,

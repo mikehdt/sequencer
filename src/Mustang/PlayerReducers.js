@@ -8,13 +8,6 @@ const defaultState = {
 
 export const reduceState = (state = defaultState, action = {}) => {
   switch (action.type) {
-    case IS_PLAYING: {
-      return {
-        ...state,
-        isPlaying: action.isPlaying,
-      };
-    }
-
     case CURRENT_TIME: {
       return {
         ...state,
