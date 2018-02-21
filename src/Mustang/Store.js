@@ -33,7 +33,7 @@ function createStore(initialState = {}) {
       return store[element];
     }
 
-    console.warn(`Store key "${element}" has not been set.`); // eslint-disable-line no-console
+    console.warn(`Store key "${element}" has not been initialised.`); // eslint-disable-line no-console
     return null;
   };
 
@@ -42,7 +42,8 @@ function createStore(initialState = {}) {
     const diffKeys = Object.keys(updatedDiff(oldValue, newValue));
     const elementSubscribers = subscribers[parentKey] || [];
 
-    if (diffKeys.length) {
+// ...something funky up with this when working with a vanilla array []
+    if (diffKeys.length || typeof oldValue === 'undefined' || oldValue.length !== newValue.length) {
       store[parentKey] = newValue;
     }
 

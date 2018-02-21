@@ -23,13 +23,11 @@ export const reduceState = (state = defaultState, action = {}) => {
   }
 };
 
-
 // Notes / Todo:
 // * Some way to request current audio slice for effects to use as vis input?
 
-const PLAYER = 'player';
+export const PLAYER = 'player';
 
-// const isPlaying = audio => audio && !audio.paused && !audio.ended && audio.readyState > 2;
 const playAudio = audio => audio && audio.play();
 const pauseAudio = audio => audio && audio.pause();
 const syncAudioTime = (audio, time = 0) => { audio.currentTime = time; };
@@ -45,18 +43,10 @@ function Player() {
   const getCurrentTime = () => getState().currentTime;
 
   const setCurrentTime = (time) => {
-    const currentState = getState();
-    const newState = reduceState(currentState, { type: CURRENT_TIME, time });
-    setState(newState);
-  };
-
-  const tick = () => {
-    if (audioEl) {
-      const { currentTime } = audioEl;
-
-      setCurrentTime(currentTime);
-      requestAnimationFrame(tick);
-    }
+    setState(reduceState(getState(), {
+      type: CURRENT_TIME,
+      time,
+    }));
   };
 
   const play = () => playAudio(audioEl);
@@ -66,6 +56,15 @@ function Player() {
   const stop = () => {
     syncAudioTime(audioEl, 0);
     pauseAudio(audioEl);
+  };
+
+  const tick = () => {
+    if (audioEl) {
+      const { currentTime } = audioEl;
+
+      setCurrentTime(currentTime);
+      requestAnimationFrame(tick);
+    }
   };
 
   const clearAudioHandlers = (audio) => {
@@ -100,8 +99,8 @@ function Player() {
     play,
     pause,
     stop,
-    setAudio,
     clearAudio,
+    setAudio,
   };
 }
 

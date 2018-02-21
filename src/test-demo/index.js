@@ -2,7 +2,7 @@ import { Mustang } from '../Mustang';
 import audioFile from './assets/song.mp3';
 import styles from '../styles/audio.scss';
 
-import { TestEffect } from './effects/testEffect';
+import { testEffect } from './effects/testEffect';
 
 // Player
 const mustang = new Mustang();
@@ -11,6 +11,8 @@ const {
   player,
   timeline,
   helpers,
+  assets,
+  effects,
 } = mustang;
 
 // DOM
@@ -20,6 +22,18 @@ const canvas = helpers.canvasElement();
 
 dom.appendChild(audio);
 dom.appendChild(canvas);
+
+assets.add('dom', {
+  asset: dom,
+  type: 'dom',
+});
+
+assets.add('canvas', {
+  asset: canvas,
+  type: 'canvas',
+});
+
+effects.add('testEffect', testEffect);
 
 // Fullscreen
 const linkEl = document.createElement('a');
@@ -34,7 +48,7 @@ const sequence = {
   timeline: [
     {
       id: 'thing',
-      effect: new TestEffect({ canvas }),
+      effectId: 'testEffect',
       start: 0,
       end: 3,
       layer: 0,
@@ -44,26 +58,26 @@ const sequence = {
     },
     {
       id: 'other-thing',
-      effect: new TestEffect({ canvas }),
+      effectId: 'testEffect',
       start: 3,
       end: 25,
-      layer: 1,
+      layer: 0,
     },
     {
       id: 'last-thing',
-      effect: new TestEffect({ canvas }),
+      effectId: 'testEffect',
       start: 25,
-      end: 96.2,
-      layer: 1,
+      end: 96.652001,
+      layer: 0,
       parameters: {
         color: '#c48431',
+        speed: 6,
       },
     },
   ],
 };
 
 timeline.parseData(sequence);
-timeline.update(0);
 
 // testStore.subscribe({ watch: 'player', key: 'currentTime', watchFn: val => console.log(val) });
 
@@ -72,4 +86,3 @@ player.setAudio(audio);
 document.getElementById('play').addEventListener('click', () => player.play());
 document.getElementById('pause').addEventListener('click', () => player.pause());
 document.getElementById('stop').addEventListener('click', () => player.stop());
-document.getElementById('jump').addEventListener('click', () => player.setCurrentTime(3));

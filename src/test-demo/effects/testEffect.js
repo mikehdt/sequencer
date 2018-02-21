@@ -1,4 +1,6 @@
-function TestEffect(initParams) {
+// Common Effect wrapper?
+
+function testEffect(initParams) {
   const { canvas } = initParams;
 
   const needs = {
@@ -11,12 +13,14 @@ function TestEffect(initParams) {
 
   const parameters = {
     color: '#beefed',
+    speed: 1,
     ctx: null,
   };
 
   function start(startParams) {
     parameters.ctx = canvas.getContext('2d');
     parameters.color = (startParams && startParams.color) || parameters.color;
+    parameters.speed = (startParams && startParams.speed) || parameters.speed;
   }
 
   function update(progress) {
@@ -27,7 +31,7 @@ function TestEffect(initParams) {
     ctx.save();
     ctx.fillStyle = parameters.color;
     ctx.translate(width / 2, height / 2);
-    ctx.rotate(360 * progress.unitInterval * (Math.PI / 180));
+    ctx.rotate(360 * progress.unitInterval * parameters.speed * (Math.PI / 180));
     ctx.fillRect(-40, -40, 80, 80);
     ctx.restore();
   }
@@ -44,4 +48,4 @@ function TestEffect(initParams) {
   };
 }
 
-export { TestEffect };
+export { testEffect };
