@@ -12,7 +12,10 @@ export const reduceState = (state = defaultState, action = {}) => {
     case ADD_EFFECT: {
       return [
         ...state,
-        { ...action.effect },
+        {
+          id: action.id,
+          effect: action.effect,
+        },
       ];
     }
 
@@ -39,10 +42,11 @@ function Effects() {
     store.set(EFFECTS, newState);
   };
 
-  const add = (Effect) => {
+  const add = (effect) => {
     setState(reduceState(getState(), {
       type: ADD_EFFECT,
-      effect: { ...new Effect() },
+      id: effect().id, // Not a fan of doing it this way...
+      effect,
     }));
   };
 

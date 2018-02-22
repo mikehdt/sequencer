@@ -17,7 +17,7 @@ function canvasElement(width = 1280, height = 720) {
 
 export { canvasElement };
 
-// Keep here or split out?
+// Keep here or split out? Maybe make a different helper...
 
 // Experiments with keeping canvas resized appropriately on redraw
 // const resizeCanvas = ctx => false;

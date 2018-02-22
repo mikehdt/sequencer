@@ -38,26 +38,31 @@ function Timeline() {
 
   const setAnimation = (props) => {
     const {
-      id,
       start,
       end,
       layer,
       effectId,
-      parameters,
+      startParams,
     } = props || {};
 
+// This area is WIP
 const assets = store.get(ASSETS);
-const effect = store.get(EFFECTS).find(item => item.id === effectId);
+const effectItem = store.get(EFFECTS).find(item => item.id === effectId);
+const Effect = effectItem.effect;
 
-if (effect && effect.init) { effect.init(assets); }
+if (!effectItem || !Effect) {
+  console.warn(`Effect "${effectId}" was requested but couldn't be found.`);
+  return {};
+}
+
+const effect = new Effect(assets);
 
     const animationData = {
-      id,
       start,
       end,
       layer,
       effect,
-      initParameters: parameters,
+      startParams,
     };
 
     return animationData;
@@ -81,7 +86,7 @@ if (effect && effect.init) { effect.init(assets); }
     ));
 
     isNew.forEach(item => (
-      item.effect && item.effect.start && item.effect.start(item.parameters || {})
+      item.effect && item.effect.start && item.effect.start(item.startParams || {})
     ));
 
     const activeAnimations = [
@@ -124,6 +129,7 @@ if (effect && effect.init) { effect.init(assets); }
       .sort(byLayer);
 
     subscribeToPlayer();
+
     update(prevTime);
   };
 

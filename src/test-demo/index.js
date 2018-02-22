@@ -4,6 +4,7 @@ import styles from '../styles/audio.scss';
 
 import * as fx from './effects';
 import { FADE_EFFECT_ID } from './effects/fadeEffect';
+import { TEST_EFFECT_ID } from './effects/testEffect';
 
 // Player
 const mustang = new Mustang();
@@ -22,7 +23,7 @@ assets.add('audio', helpers.audioElement(audioFile, styles.audio));
 player.setAudio(assets.get('audio'));
 
 effects.add(fx.fadeEffect);
-// effects.add(fx.testEffect);
+effects.add(fx.testEffect);
 
 // testStore.subscribe({ watch: 'player', key: 'currentTime', watchFn: val => console.log(val) });
 
@@ -46,22 +47,22 @@ const sequence = {
       end: 3,
       layer: 0,
     },
-    // {
-    //   effectId: 'testEffect',
-    //   start: 3,
-    //   end: 25,
-    //   layer: 0,
-    // },
-    // {
-    //   effectId: 'testEffect',
-    //   start: 25,
-    //   end: 96.652001,
-    //   layer: 0,
-    //   parameters: {
-    //     color: '#c48431',
-    //     speed: 6,
-    //   },
-    // },
+    {
+      effectId: TEST_EFFECT_ID,
+      start: 3,
+      end: 25,
+      layer: 0,
+    },
+    {
+      effectId: TEST_EFFECT_ID,
+      start: 25,
+      end: 96.652001,
+      layer: 0,
+      startParams: {
+        color: '#c48431',
+        speed: 6,
+      },
+    },
   ],
 };
 

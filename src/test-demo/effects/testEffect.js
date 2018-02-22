@@ -1,30 +1,38 @@
 // Common Effect wrapper?
 
-function testEffect(initParams) {
-  const { canvas } = initParams;
+export const TEST_EFFECT_ID = 'testEffect';
 
-  const needs = {
+function testEffect(allAssets) {
+  const needs = [
     // List of needed resources
-  };
+    'canvas',
+  ];
 
-  const assets = {
-    // List of assets
-  };
+  const assets = {};
 
   const parameters = {
     color: '#beefed',
     speed: 1,
-    ctx: null,
   };
 
+  if (allAssets) {
+    // This feels messy, like it should be lifted outside and passed in
+    allAssets
+      .filter(item => needs.includes(item.id))
+      .forEach((item) => {
+        assets[item.id] = item.asset; // ???
+      });
+
+    assets.ctx = assets.canvas.getContext('2d');
+  }
+
   function start(startParams) {
-    parameters.ctx = canvas.getContext('2d');
     parameters.color = (startParams && startParams.color) || parameters.color;
     parameters.speed = (startParams && startParams.speed) || parameters.speed;
   }
 
   function update(progress) {
-    const { ctx } = parameters;
+    const { ctx } = assets;
     const { width, height } = ctx.canvas;
 
     ctx.clearRect(0, 0, width, height);
@@ -39,10 +47,8 @@ function testEffect(initParams) {
   function end() {}
 
   return {
-    id: 'testEffect',
+    id: TEST_EFFECT_ID,
     needs,
-    assets,
-    parameters,
     start,
     update,
     end,
