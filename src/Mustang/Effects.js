@@ -2,7 +2,6 @@ import { connectStore } from './Store';
 
 // Action types
 export const ADD_EFFECT = 'effects/add';
-export const REMOVE_EFFECT = 'effects/remove';
 
 // Reducers
 const defaultState = [];

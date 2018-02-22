@@ -22,6 +22,7 @@ import { canvasElement } from './helpers/canvas';
 // * Fragment shaders?
 // * Investigate Store challenges and listeners and such
 // * Modifier curves that change the timeline pass-through values?
+// * Event listener adding / removing for effects
 
 function Mustang() {
   createStore();
