@@ -45,15 +45,19 @@ function Timeline() {
       effectId,
       parameters,
     } = props || {};
+
 const assets = store.get(ASSETS);
-const { effect } = store.get(EFFECTS).find(item => item.id === effectId);
+const effect = store.get(EFFECTS).find(item => item.id === effectId);
+
+if (effect && effect.init) { effect.init(assets); }
+
     const animationData = {
       id,
       start,
       end,
       layer,
-      effect: new effect({ canvas: assets.find(item => item.id === 'canvas').asset }), // ehhhhhhhhhhhhh noooo
-      parameters,
+      effect,
+      initParameters: parameters,
     };
 
     return animationData;

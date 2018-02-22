@@ -13,8 +13,6 @@ html,
 body {
   margin: 0;
   padding: 0;
-  text-align: center;
-  background-color: $black;
 }
 
 html {
@@ -22,11 +20,8 @@ html {
 }
 
 body {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
   font-size: 1.6rem;
+  background-color: $black;
 }
 
 canvas {
@@ -41,11 +36,16 @@ a {
 :global {
   #root {
     display: flex;
-    width: 100%;
-    min-height: 100vh;
+    flex-wrap: wrap;
     align-items: center;
+    align-content: center;
     justify-content: center;
     text-align: center;
+    min-height: 100vh;
+  }
+
+  #test-controls {
+    width: 100%;
   }
 
   .leCanvas {

@@ -1,4 +1,4 @@
-const fullscreenElement = (
+const hasFullscreenElement = () => (
   document.fullscreenElement
   || document.webkitFullscreenElement
   || document.mozFullScreenElement
@@ -25,9 +25,9 @@ export const toggleFullScreen = (goFullScreen) => {
     return;
   }
 
-  const isFullScreen = !!fullscreenElement;
+  const isFullScreen = !!hasFullscreenElement();
 
-  if (isFullScreen && !goFullScreen) {
+  if (isFullScreen) {
     exitFullscreen();
   } else if (!isFullScreen && goFullScreen) {
     requestFullscreen(Element.ALLOW_KEYBOARD_INPUT);

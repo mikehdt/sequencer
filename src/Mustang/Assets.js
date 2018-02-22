@@ -13,8 +13,8 @@ export const reduceState = (state = defaultState, action = {}) => {
         ...state,
         {
           id: action.id,
-          type: action.type,
-          ...action.asset,
+          asset: action.asset,
+          ...action.extraProps,
         },
       ];
     }
@@ -36,15 +36,25 @@ function Assets() {
     store.set(ASSETS, newState);
   };
 
-  const add = (assetId, asset) => {
+  const add = (id, asset, extraProps = {}) => {
     setState(reduceState(getState(), {
       type: ADD_ASSET,
-      id: assetId,
+      id,
       asset,
+      extraProps,
     }));
   };
 
-  const get = assetId => getState().find(asset => asset.id === assetId);
+  const get = (id) => {
+    const assetItem = getState().find(asset => asset.id === id);
+
+    if (!assetItem) {
+      console.warn(`Can't find asset with ID "${id}"`); // eslint-disable-line no-console
+      return {};
+    }
+
+    return assetItem.asset;
+  };
 
   const list = () => getState();
 

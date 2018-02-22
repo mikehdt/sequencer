@@ -39,6 +39,7 @@ function testEffect(initParams) {
   function end() {}
 
   return {
+    id: 'testEffect',
     needs,
     assets,
     parameters,

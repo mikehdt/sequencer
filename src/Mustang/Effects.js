@@ -12,16 +12,13 @@ export const reduceState = (state = defaultState, action = {}) => {
     case ADD_EFFECT: {
       return [
         ...state,
-        {
-          id: action.effectId,
-          effect: action.effect,
-        },
+        { ...action.effect },
       ];
     }
 
     case REMOVE_EFFECT: {
       return [
-        ...state.filter(effect => effect.id !== action.effectId),
+        ...state.filter(effect => effect.id !== action.id),
       ];
     }
 
@@ -42,22 +39,22 @@ function Effects() {
     store.set(EFFECTS, newState);
   };
 
-  const add = (effectId, effect) => {
+  const add = (Effect) => {
     setState(reduceState(getState(), {
       type: ADD_EFFECT,
-      effectId,
-      effect,
+      effect: { ...new Effect() },
     }));
   };
 
-  const remove = (effectId) => {
+  // Utility of this function?
+  const remove = (id) => {
     setState(reduceState(getState(), {
       type: REMOVE_EFFECT,
-      effectId,
+      id,
     }));
   };
 
-  const get = effectId => getState().find(effect => effect.id === effectId);
+  const get = id => getState().find(effect => effect.id === id);
 
   const list = () => getState();
 

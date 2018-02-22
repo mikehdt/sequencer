@@ -1,12 +1,13 @@
 import { updatedDiff } from 'deep-object-diff';
 
 const global = window || document;
+const checkUndefined = (theItem, initValue) => (typeof theItem !== 'undefined' ? theItem : initValue);
 
 // Nothing fancy, just a pure JS store with some simple up-to-two level ability
 // to subscribe to set changes.
 function createStore(initialState = {}) {
   if (global.store) {
-    console.error('The store has already been instantiated!'); // eslint-disable-line no-console
+    console.error('The store has already been initialised!'); // eslint-disable-line no-console
     return global.store;
   }
 
@@ -33,7 +34,7 @@ function createStore(initialState = {}) {
       return store[element];
     }
 
-    console.warn(`Store key "${element}" has not been initialised.`); // eslint-disable-line no-console
+    console.warn(`Store key "${element}" hasn't been set.`); // eslint-disable-line no-console
     return null;
   };
 
@@ -72,19 +73,19 @@ function createStore(initialState = {}) {
       id = false,
     } = props;
 
-    if (typeof subscribers[watch] === 'undefined') { subscribers[watch] = {}; }
+    subscribers[watch] = checkUndefined(subscribers[watch], {});
 
     if (key) {
-      if (typeof subscribers[watch][key] === 'undefined') {
-        subscribers[watch][key] = { [WATCHERS_KEY]: [] };
-      }
-
-      subscribers[watch][key][WATCHERS_KEY].push({ id, watchFn });
+      subscribers[watch][key] = checkUndefined(subscribers[watch][key], { [WATCHERS_KEY]: [] });
+      subscribers[watch][key][WATCHERS_KEY] = [
+        ...subscribers[watch][key][WATCHERS_KEY],
+        {
+          id,
+          watchFn,
+        },
+      ];
     } else {
-      if (typeof subscribers[watch][WATCHERS_KEY] === 'undefined') {
-        subscribers[watch][WATCHERS_KEY] = [];
-      }
-
+      subscribers[watch][WATCHERS_KEY] = checkUndefined(subscribers[watch][WATCHERS_KEY], []);
       subscribers[watch][WATCHERS_KEY].push({ id, watchFn });
     }
   };
@@ -124,7 +125,7 @@ function connectStore() {
     return global.store;
   }
 
-  console.error('Cannot connect to store, no store is available.'); // eslint-disable-line no-console
+  console.error("Can't connect to store, store hasn't been initialised."); // eslint-disable-line no-console
   return {};
 }
 
@@ -132,12 +133,3 @@ export {
   createStore,
   connectStore,
 };
-
-
-// const findThing = path => state => path.reduce((keys, searchItem) => (
-//   (keys && keys[searchItem])
-//     ? keys[searchItem]
-//     : null
-// ), state);
-
-// console.log(findThing(['one', 'two', 'three'])(global.store.getState()));
