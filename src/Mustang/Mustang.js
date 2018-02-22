@@ -14,10 +14,14 @@ import { canvasElement } from './helpers/canvas';
 // -----
 
 // Things to do:
-// * Add effects registry, which timeline can bring in whilst running .parse()
 // * Add base effect type that custom effects can extend?
-// * Add resources (audio, canvas, etc.?)
-// * Add assets (images, audio?) and way to preload them
+// * Add a way to preload assets
+// * Figure out best way to get asset `needs` to each effect instead of all
+// * Sort out the helpers
+// * Think about IDs and the best way to use them
+// * Fragment shaders?
+// * Investigate Store challenges and listeners and such
+// * Modifier curves that change the timeline pass-through values?
 
 function Mustang() {
   createStore();

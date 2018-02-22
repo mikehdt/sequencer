@@ -19,12 +19,6 @@ export const reduceState = (state = defaultState, action = {}) => {
       ];
     }
 
-    case REMOVE_EFFECT: {
-      return [
-        ...state.filter(effect => effect.id !== action.id),
-      ];
-    }
-
     default: {
       return state;
     }
@@ -50,14 +44,6 @@ function Effects() {
     }));
   };
 
-  // Utility of this function?
-  const remove = (id) => {
-    setState(reduceState(getState(), {
-      type: REMOVE_EFFECT,
-      id,
-    }));
-  };
-
   const get = id => getState().find(effect => effect.id === id);
 
   const list = () => getState();
@@ -66,7 +52,6 @@ function Effects() {
 
   return {
     add,
-    remove,
     get,
     list,
   };

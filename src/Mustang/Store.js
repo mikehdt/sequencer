@@ -1,4 +1,4 @@
-import { updatedDiff } from 'deep-object-diff';
+import { diff } from 'deep-object-diff';
 
 const global = window || document;
 const checkUndefined = (theItem, initValue) => (typeof theItem !== 'undefined' ? theItem : initValue);
@@ -40,11 +40,10 @@ function createStore(initialState = {}) {
 
   const setKey = (parentKey, newValue) => {
     const oldValue = store[parentKey];
-    const diffKeys = Object.keys(updatedDiff(oldValue, newValue));
+    const diffKeys = Object.keys(diff(oldValue, newValue));
     const elementSubscribers = subscribers[parentKey] || [];
 
-// ...something funky up with this when working with a vanilla array []
-    if (diffKeys.length || typeof oldValue === 'undefined' || oldValue.length !== newValue.length) {
+    if (diffKeys.length || typeof oldValue === 'undefined') {
       store[parentKey] = newValue;
     }
 

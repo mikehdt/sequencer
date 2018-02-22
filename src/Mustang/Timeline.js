@@ -46,16 +46,15 @@ function Timeline() {
       startParams,
     } = props || {};
 
-// This area is WIP
-const effectItem = store.get(EFFECTS).find(item => item.id === effectId);
-const Effect = effectItem.effect;
+    const effectItem = store.get(EFFECTS).find(item => item.id === effectId);
 
-if (!effectItem || !Effect) {
-  console.warn(`Effect "${effectId}" was requested but couldn't be found.`);
-  return {};
-}
+    if (!effectItem || !effectItem.effect) {
+      console.warn(`Effect "${effectId}" was requested but couldn't be found.`);
+      return {};
+    }
 
-const effect = new Effect();
+    const Effect = effectItem.effect;
+    const effect = new Effect();
 
     const animationData = {
       start,
