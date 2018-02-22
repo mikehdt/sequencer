@@ -32,6 +32,7 @@ const splitActiveAndFinished = (animations, time) => (
 
 function Timeline() {
   const store = connectStore();
+  let assets = [];
   let animations = [];
   let prevActiveAnimations = [];
   let prevTime = 0;
@@ -46,7 +47,6 @@ function Timeline() {
     } = props || {};
 
 // This area is WIP
-const assets = store.get(ASSETS);
 const effectItem = store.get(EFFECTS).find(item => item.id === effectId);
 const Effect = effectItem.effect;
 
@@ -55,7 +55,7 @@ if (!effectItem || !Effect) {
   return {};
 }
 
-const effect = new Effect(assets);
+const effect = new Effect();
 
     const animationData = {
       start,
@@ -86,7 +86,10 @@ const effect = new Effect(assets);
     ));
 
     isNew.forEach(item => (
-      item.effect && item.effect.start && item.effect.start(item.startParams || {})
+      item.effect && item.effect.start && item.effect.start({
+        startParams: item.startParams || {},
+        allAssets: assets,
+      })
     ));
 
     const activeAnimations = [
@@ -121,6 +124,8 @@ const effect = new Effect(assets);
       console.error('Timeline parsing failed: version mismatch.'); // eslint-disable-line no-console
       return;
     }
+
+    assets = store.get(ASSETS);
 
     const { timeline } = newData;
 

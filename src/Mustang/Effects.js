@@ -42,10 +42,10 @@ function Effects() {
     store.set(EFFECTS, newState);
   };
 
-  const add = (effect) => {
+  const add = (id, effect) => {
     setState(reduceState(getState(), {
       type: ADD_EFFECT,
-      id: effect().id, // Not a fan of doing it this way...
+      id,
       effect,
     }));
   };

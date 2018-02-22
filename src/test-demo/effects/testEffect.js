@@ -1,10 +1,7 @@
-// Common Effect wrapper?
-
 export const TEST_EFFECT_ID = 'testEffect';
 
-function testEffect(allAssets) {
+function testEffect() {
   const needs = [
-    // List of needed resources
     'canvas',
   ];
 
@@ -15,7 +12,7 @@ function testEffect(allAssets) {
     speed: 1,
   };
 
-  if (allAssets) {
+  function start({ allAssets, startParams }) {
     // This feels messy, like it should be lifted outside and passed in
     allAssets
       .filter(item => needs.includes(item.id))
@@ -24,9 +21,7 @@ function testEffect(allAssets) {
       });
 
     assets.ctx = assets.canvas.getContext('2d');
-  }
 
-  function start(startParams) {
     parameters.color = (startParams && startParams.color) || parameters.color;
     parameters.speed = (startParams && startParams.speed) || parameters.speed;
   }
@@ -47,7 +42,6 @@ function testEffect(allAssets) {
   function end() {}
 
   return {
-    id: TEST_EFFECT_ID,
     needs,
     start,
     update,

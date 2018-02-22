@@ -22,8 +22,8 @@ assets.add('audio', helpers.audioElement(audioFile, styles.audio));
 
 player.setAudio(assets.get('audio'));
 
-effects.add(fx.fadeEffect);
-effects.add(fx.testEffect);
+effects.add(FADE_EFFECT_ID, fx.fadeEffect);
+effects.add(TEST_EFFECT_ID, fx.testEffect);
 
 // testStore.subscribe({ watch: 'player', key: 'currentTime', watchFn: val => console.log(val) });
 
@@ -32,9 +32,6 @@ const dom = helpers.dom('root');
 dom.appendChild(assets.get('canvas'));
 dom.appendChild(assets.get('audio'));
 
-document.getElementById('play').addEventListener('click', () => player.play());
-document.getElementById('pause').addEventListener('click', () => player.pause());
-document.getElementById('stop').addEventListener('click', () => player.stop());
 document.getElementById('fullscreen').addEventListener('click', () => helpers.toggleFullScreen(true));
 
 // Timeline
@@ -44,8 +41,18 @@ const sequence = {
     {
       effectId: FADE_EFFECT_ID,
       start: 0,
+      end: 2,
+      layer: 1,
+    },
+    {
+      effectId: TEST_EFFECT_ID,
+      start: 0,
       end: 3,
       layer: 0,
+      startParams: {
+        speed: -0.5,
+        color: '#b497e5',
+      },
     },
     {
       effectId: TEST_EFFECT_ID,
