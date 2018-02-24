@@ -5,28 +5,28 @@ function testEffect() {
     'canvas',
   ];
 
-  const assets = {};
+  let assets = {};
 
   const parameters = {
     color: '#beefed',
     speed: 1,
   };
 
-  function start({ allAssets, startParams }) {
-    // This feels messy, like it should be lifted outside and passed in
-    allAssets
-      .filter(item => needs.includes(item.id))
-      .forEach((item) => {
-        assets[item.id] = item.data; // ???
+  const mergeStartParams = (startParams) => {
+    Object.keys(startParams)
+      .forEach((key) => {
+        parameters[key] = startParams[key];
       });
+  };
 
+  const start = ({ neededAssets, startParams }) => {
+    assets = neededAssets;
     assets.ctx = assets.canvas.getContext('2d');
 
-    parameters.color = (startParams && startParams.color) || parameters.color;
-    parameters.speed = (startParams && startParams.speed) || parameters.speed;
-  }
+    mergeStartParams(startParams);
+  };
 
-  function update(progress) {
+  const update = (progress) => {
     const { ctx } = assets;
     const { width, height } = ctx.canvas;
 
@@ -37,15 +37,12 @@ function testEffect() {
     ctx.rotate(360 * progress.unitInterval * parameters.speed * (Math.PI / 180));
     ctx.fillRect(-40, -40, 80, 80);
     ctx.restore();
-  }
-
-  function end() {}
+  };
 
   return {
     needs,
     start,
     update,
-    end,
   };
 }
 

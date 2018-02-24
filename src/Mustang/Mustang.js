@@ -15,15 +15,14 @@ export const EFFECTS = 'effects';
 
 // -----
 
-// Things to do:
+// Notes / Todo:
 // * Add base effect type that custom effects can extend?
 // * Add a way to preload assets
-// * Figure out best way to get asset `needs` to each effect instead of all
 // * Sort out the helpers
-// * Think about IDs and the best way to use them
 // * Fragment shaders?
-// * Investigate Store challenges and listeners and such
+// * Investigate Store challenges and listeners and such (Proxy?)
 // * Modifier curves that change the timeline pass-through values?
+// * Some way to request current audio slice for effects to use as vis input?
 
 function Mustang() {
   createStore();

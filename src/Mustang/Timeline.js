@@ -82,12 +82,22 @@ function Timeline() {
       item.effect && item.effect.end && item.effect.end()
     ));
 
-    isNew.forEach(item => (
-      item.effect && item.effect.start && item.effect.start({
-        startParams: item.startParams || {},
-        allAssets: assets.list(),
-      })
-    ));
+    isNew.forEach((item) => {
+      const neededAssets = assets
+        .list()
+        .filter(asset => item.effect.needs && item.effect.needs.includes(asset.id))
+        .reduce((acc, asset) => ({
+          ...acc,
+          [asset.id]: asset.data,
+        }), {});
+
+      return (
+        item.effect && item.effect.start && item.effect.start({
+          startParams: item.startParams || {},
+          neededAssets,
+        })
+      );
+    });
 
     const activeAnimations = [
       ...isActive,

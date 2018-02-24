@@ -23,9 +23,6 @@ export const reduceState = (state = defaultState, action = {}) => {
   }
 };
 
-// Notes / Todo:
-// * Some way to request current audio slice for effects to use as vis input?
-
 export const PLAYER = 'player';
 
 const playAudio = audio => audio && audio.play();
@@ -93,6 +90,14 @@ function Player() {
     requestAnimationFrame(tick);
   };
 
+  const setTime = (time) => {
+    setCurrentTime(time);
+
+    if (audioEl) {
+      syncAudioTime(audioEl, time);
+    }
+  };
+
   setState(reduceState());
 
   return {
@@ -101,6 +106,7 @@ function Player() {
     stop,
     clearAudio,
     setAudio,
+    setTime,
   };
 }
 

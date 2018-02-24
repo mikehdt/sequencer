@@ -43,12 +43,14 @@ const sequence = {
   version: 1,
   timeline: [
     {
+      name: 'fade in',
       effectId: FADE_EFFECT_ID,
       start: 0,
       end: 2,
       layer: 1,
     },
     {
+      name: 'spinning thing 1',
       effectId: TEST_EFFECT_ID,
       start: 0,
       end: 3,
@@ -59,12 +61,14 @@ const sequence = {
       },
     },
     {
+      name: 'spinning thing 2',
       effectId: TEST_EFFECT_ID,
       start: 3,
       end: 25,
       layer: 0,
     },
     {
+      name: 'spinning thing 3',
       effectId: TEST_EFFECT_ID,
       start: 25,
       end: 96.652001,

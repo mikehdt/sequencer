@@ -5,20 +5,14 @@ function fadeEffect() {
     'canvas',
   ];
 
-  const assets = {};
+  let assets = {};
 
   const parameters = {
     color: 'rgba(255,255,255, 1)',
   };
 
-  const start = ({ allAssets }) => {
-    // This feels messy, like it should be lifted outside and passed in
-    allAssets
-      .filter(item => needs.includes(item.id))
-      .forEach((item) => {
-        assets[item.id] = item.data; // ???
-      });
-
+  const start = ({ neededAssets }) => {
+    assets = neededAssets;
     assets.ctx = assets.canvas.getContext('2d');
   };
 
