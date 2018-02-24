@@ -1,6 +1,4 @@
 import { connectStore } from './Store';
-import { ASSETS } from './Assets';
-import { EFFECTS } from './Effects';
 
 const TIMELINE_VERSION = 1;
 
@@ -33,6 +31,7 @@ const splitActiveAndFinished = (animations, time) => (
 function Timeline() {
   const store = connectStore();
   let assets = [];
+  let effects = [];
   let animations = [];
   let prevActiveAnimations = [];
   let prevTime = 0;
@@ -46,14 +45,13 @@ function Timeline() {
       startParams,
     } = props || {};
 
-    const effectItem = store.get(EFFECTS).find(item => item.id === effectId);
+    const Effect = effects.getData(effectId);
 
-    if (!effectItem || !effectItem.effect) {
-      console.warn(`Effect "${effectId}" was requested but couldn't be found.`);
+    if (!Effect) {
+      console.warn(`Effect "${effectId}" was requested but couldn't be found.`); // eslint-disable-line no-console
       return {};
     }
 
-    const Effect = effectItem.effect;
     const effect = new Effect();
 
     const animationData = {
@@ -87,7 +85,7 @@ function Timeline() {
     isNew.forEach(item => (
       item.effect && item.effect.start && item.effect.start({
         startParams: item.startParams || {},
-        allAssets: assets,
+        allAssets: assets.list(),
       })
     ));
 
@@ -118,13 +116,14 @@ function Timeline() {
     store.subscribe({ watch: 'player', key: 'currentTime', watchFn: update });
   };
 
-  const parseData = (newData) => {
+  const parseData = (newData, currentAssets, currentEffects) => {
     if (!newData.version || newData.version !== TIMELINE_VERSION) {
       console.error('Timeline parsing failed: version mismatch.'); // eslint-disable-line no-console
       return;
     }
 
-    assets = store.get(ASSETS);
+    assets = currentAssets;
+    effects = currentEffects;
 
     const { timeline } = newData;
 

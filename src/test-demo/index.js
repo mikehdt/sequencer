@@ -6,6 +6,10 @@ import * as fx from './effects';
 import { FADE_EFFECT_ID } from './effects/fadeEffect';
 import { TEST_EFFECT_ID } from './effects/testEffect';
 
+const DOM_ID = 'root';
+const CANVAS = 'canvas';
+const AUDIO = 'audio';
+
 // Player
 const mustang = new Mustang();
 
@@ -17,10 +21,10 @@ const {
   effects,
 } = mustang;
 
-assets.add('canvas', helpers.canvasElement());
-assets.add('audio', helpers.audioElement(audioFile, styles.audio));
+assets.add(CANVAS, helpers.canvasElement());
+assets.add(AUDIO, helpers.audioElement(audioFile, styles.audio));
 
-player.setAudio(assets.get('audio'));
+player.setAudio(assets.getData(AUDIO));
 
 effects.add(FADE_EFFECT_ID, fx.fadeEffect);
 effects.add(TEST_EFFECT_ID, fx.testEffect);
@@ -28,9 +32,9 @@ effects.add(TEST_EFFECT_ID, fx.testEffect);
 // testStore.subscribe({ watch: 'player', key: 'currentTime', watchFn: val => console.log(val) });
 
 // DOM
-const dom = helpers.dom('root');
-dom.appendChild(assets.get('canvas'));
-dom.appendChild(assets.get('audio'));
+const dom = helpers.dom(DOM_ID);
+dom.appendChild(assets.getData(CANVAS));
+dom.appendChild(assets.getData(AUDIO));
 
 document.getElementById('fullscreen').addEventListener('click', () => helpers.toggleFullScreen(true));
 
@@ -73,4 +77,4 @@ const sequence = {
   ],
 };
 
-timeline.parseData(sequence);
+timeline.parseData(sequence, assets, effects);

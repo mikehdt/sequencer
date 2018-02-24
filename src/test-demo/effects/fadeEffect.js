@@ -16,7 +16,7 @@ function fadeEffect() {
     allAssets
       .filter(item => needs.includes(item.id))
       .forEach((item) => {
-        assets[item.id] = item.asset; // ???
+        assets[item.id] = item.data; // ???
       });
 
     assets.ctx = assets.canvas.getContext('2d');

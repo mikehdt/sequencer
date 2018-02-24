@@ -13,7 +13,7 @@ export const reduceState = (state = defaultState, action = {}) => {
         ...state,
         {
           id: action.id,
-          asset: action.asset,
+          data: action.data,
           ...action.extraProps,
         },
       ];
@@ -25,36 +25,37 @@ export const reduceState = (state = defaultState, action = {}) => {
   }
 };
 
-export const ASSETS = 'assets';
+function Assets(storeKey) {
+  if (!storeKey) {
+    console.error('A key is required to create a new Assets list.'); // eslint-disable-line no-console
+    return {};
+  }
 
-function Assets() {
   const store = connectStore();
 
-  const getState = () => store.get(ASSETS);
+  const getState = () => store.get(storeKey);
 
   const setState = (newState) => {
-    store.set(ASSETS, newState);
+    store.set(storeKey, newState);
   };
 
-  const add = (id, asset, extraProps = {}) => {
+  const add = (id, data) => {
     setState(reduceState(getState(), {
       type: ADD_ASSET,
       id,
-      asset,
-      extraProps,
+      data,
     }));
   };
 
-  const get = (id) => {
-    const assetItem = getState().find(asset => asset.id === id);
+  const get = id => (
+    getState().find(item => item.id === id)
+    || console.warn(`Can't find ${storeKey} with ID "${id}"`) // eslint-disable-line no-console
+  );
 
-    if (!assetItem) {
-      console.warn(`Can't find asset with ID "${id}"`); // eslint-disable-line no-console
-      return {};
-    }
-
-    return assetItem.asset;
-  };
+  const getData = id => (
+    getState().find(item => item.id === id).data
+    || console.warn(`Can't find data for ${storeKey} with ID "${id}"`) // eslint-disable-line no-console
+  );
 
   const list = () => getState();
 
@@ -63,6 +64,7 @@ function Assets() {
   return {
     add,
     get,
+    getData,
     list,
   };
 }

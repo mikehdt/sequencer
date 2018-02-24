@@ -3,13 +3,15 @@ import { createStore } from './Store';
 import { Player } from './Player';
 import { Timeline } from './Timeline';
 import { Assets } from './Assets';
-import { Effects } from './Effects';
 
 // Helpers
 import { toggleFullScreen } from './helpers/fullscreen';
 import { dom } from './helpers/dom';
 import { audioElement } from './helpers/audio';
 import { canvasElement } from './helpers/canvas';
+
+export const ASSETS = 'assets';
+export const EFFECTS = 'effects';
 
 // -----
 
@@ -22,15 +24,14 @@ import { canvasElement } from './helpers/canvas';
 // * Fragment shaders?
 // * Investigate Store challenges and listeners and such
 // * Modifier curves that change the timeline pass-through values?
-// * Event listener adding / removing for effects
 
 function Mustang() {
   createStore();
 
   const player = new Player();
   const timeline = new Timeline();
-  const assets = new Assets();
-  const effects = new Effects();
+  const assets = new Assets(ASSETS);
+  const effects = new Assets(EFFECTS);
 
   return {
     player,
