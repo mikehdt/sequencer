@@ -1,4 +1,4 @@
-const hasFullscreenElement = () => (
+const getFullscreenElement = () => (
   document.fullscreenElement
   || document.webkitFullscreenElement
   || document.mozFullScreenElement
@@ -25,7 +25,7 @@ export const toggleFullScreen = (goFullScreen) => {
     return;
   }
 
-  const isFullScreen = !!hasFullscreenElement();
+  const isFullScreen = !!getFullscreenElement();
 
   if (isFullScreen) {
     exitFullscreen();

@@ -78,9 +78,7 @@ function Timeline() {
     } = splitAnimations;
 
     // Call effect constructors / destructors if they exist
-    isFinished.forEach(item => (
-      item.effect && item.effect.end && item.effect.end()
-    ));
+    isFinished.forEach(item => item.effect && item.effect.end && item.effect.end());
 
     isNew.forEach((item) => {
       const neededAssets = assets
@@ -122,7 +120,6 @@ function Timeline() {
   };
 
   const subscribeToPlayer = () => {
-    // Put in a stop watching function later ons
     store.subscribe({ watch: 'player', key: 'currentTime', watchFn: update });
   };
 

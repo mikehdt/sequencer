@@ -19,7 +19,10 @@ html {
   font-size: 62.5%;
 }
 
+// 1. 100% width/height needed to handle fullscreen resizing in Chrome
 body {
+  min-width: 100%; // [1]
+  min-height: 100%; // [1]
   font-size: 1.6rem;
   background-color: $black;
 }
@@ -45,16 +48,18 @@ a {
   }
 
   #test-controls {
+    position: absolute;
+    top: 0;
     width: 100%;
   }
 
-  .leCanvas {
-    width: calc(100vw - (100vw - 100%));
-    height: calc(56.25vw - ((100vw - 100%) / 56.25));
-    max-width: 128rem;
-    max-height: 72rem;
-    box-shadow: 0 0 0.3rem rgba($white, 0.3);
+  // .leCanvas {
+  //   width: calc(100vw - (100vw - 100%));
+  //   height: calc(56.25vw - ((100vw - 100%) / 56.25));
+  //   max-width: 128rem;
+  //   max-height: 72rem;
+  //   box-shadow: 0 0 0.3rem rgba($white, 0.3);
 
-    image-rendering: pixelated;
-  }
+  //   image-rendering: pixelated;
+  // }
 }

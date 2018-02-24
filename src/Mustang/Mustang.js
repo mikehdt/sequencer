@@ -23,6 +23,8 @@ export const EFFECTS = 'effects';
 // * Investigate Store challenges and listeners and such (Proxy?)
 // * Modifier curves that change the timeline pass-through values?
 // * Some way to request current audio slice for effects to use as vis input?
+// * Force update of Store key notifier?
+// * on- event hooks for Effects (onResize)
 
 function Mustang() {
   createStore();
