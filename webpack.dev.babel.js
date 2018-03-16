@@ -2,7 +2,7 @@ import path from 'path';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 module.exports = {
-  // mode: 'development',
+  mode: 'development',
   devtool: 'eval-cheap-module-source-map',
   entry: './src/index.js',
   devServer: {

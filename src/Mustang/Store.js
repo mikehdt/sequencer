@@ -3,6 +3,8 @@ import { diff } from 'deep-object-diff';
 const global = window || document;
 const checkUndefined = (theItem, initValue) => (typeof theItem !== 'undefined' ? theItem : initValue);
 
+// Subscribers could probably be reworked with Proxies
+
 // Nothing fancy, just a pure JS store with some simple up-to-two level ability
 // to subscribe to set changes.
 function createStore(initialState = {}) {

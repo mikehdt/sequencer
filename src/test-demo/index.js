@@ -1,4 +1,4 @@
-import { Mustang } from '../Mustang';
+import { Mustang, helpers } from '../Mustang';
 import audioFile from './assets/song.mp3';
 import styles from '../styles/audio.scss';
 
@@ -16,10 +16,11 @@ const mustang = new Mustang();
 const {
   player,
   timeline,
-  helpers,
   assets,
   effects,
 } = mustang;
+
+const dom = helpers.getDom(DOM_ID);
 
 assets.add(CANVAS, helpers.canvasElement());
 assets.add(AUDIO, helpers.audioElement(audioFile, styles.audio));
@@ -32,7 +33,6 @@ effects.add(TEST_EFFECT_ID, fx.testEffect);
 // testStore.subscribe({ watch: 'player', key: 'currentTime', watchFn: val => console.log(val) });
 
 // DOM
-const dom = helpers.dom(DOM_ID);
 dom.appendChild(assets.getData(CANVAS));
 dom.appendChild(assets.getData(AUDIO));
 

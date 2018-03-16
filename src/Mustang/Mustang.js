@@ -5,8 +5,8 @@ import { Timeline } from './Timeline';
 import { Assets } from './Assets';
 
 // Helpers
+import { getDom } from './helpers/dom';
 import { toggleFullScreen } from './helpers/fullscreen';
-import { dom } from './helpers/dom';
 import { audioElement } from './helpers/audio';
 import { canvasElement } from './helpers/canvas';
 
@@ -39,13 +39,14 @@ function Mustang() {
     timeline,
     assets,
     effects,
-    helpers: {
-      dom,
-      toggleFullScreen,
-      audioElement,
-      canvasElement,
-    },
   };
 }
 
-export { Mustang };
+const helpers = {
+  getDom,
+  toggleFullScreen,
+  audioElement,
+  canvasElement,
+};
+
+export { Mustang, helpers };

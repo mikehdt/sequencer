@@ -65,7 +65,7 @@ function Timeline() {
     return animationData;
   };
 
-  const update = (time) => {
+  const update = (time = prevTime) => {
     const isNew = animations.filter(item => (
       item.start <= time && item.end > time && !prevActiveAnimations.includes(item)
     ));

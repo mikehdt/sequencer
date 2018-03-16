@@ -55,7 +55,10 @@ function Player() {
     pauseAudio(audioEl);
   };
 
-  const tick = () => {
+  const tick = (runTime) => {
+    // Firefox doesn't update audio.currentTime at 60fps, so it animates much
+    // slower visually, at around 20fps. Need to use rAF time delta to mitigate
+    const currentTime = timeDelta / 1000;
     if (audioEl) {
       const { currentTime } = audioEl;
 

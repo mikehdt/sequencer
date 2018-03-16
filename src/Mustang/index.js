@@ -1,1 +1,1 @@
-export { Mustang } from './Mustang';
+export * from './Mustang';
