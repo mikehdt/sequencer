@@ -1,3 +1,3 @@
-const getDom = elementId => document.getElementById(elementId);
+const getElementById = elementId => document.getElementById(elementId);
 
-export { getDom };
+export { getElementById };

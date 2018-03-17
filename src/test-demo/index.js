@@ -1,6 +1,6 @@
 import { Mustang, helpers } from '../Mustang';
 import audioFile from './assets/song.mp3';
-import styles from '../styles/audio.scss';
+import styles from '../styles/index.scss';
 
 import * as fx from './effects';
 import { FADE_EFFECT_ID } from './effects/fadeEffect';
@@ -20,9 +20,9 @@ const {
   effects,
 } = mustang;
 
-const dom = helpers.getDom(DOM_ID);
+const dom = helpers.getElementById(DOM_ID);
 
-assets.add(CANVAS, helpers.canvasElement());
+assets.add(CANVAS, helpers.canvasElement({ className: styles.leCanvas }));
 assets.add(AUDIO, helpers.audioElement(audioFile, styles.audio));
 
 player.setAudio(assets.getData(AUDIO));

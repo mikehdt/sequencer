@@ -5,7 +5,7 @@ import { Timeline } from './Timeline';
 import { Assets } from './Assets';
 
 // Helpers
-import { getDom } from './helpers/dom';
+import { getElementById } from './helpers/dom';
 import { toggleFullScreen } from './helpers/fullscreen';
 import { audioElement } from './helpers/audio';
 import { canvasElement } from './helpers/canvas';
@@ -43,7 +43,7 @@ function Mustang() {
 }
 
 const helpers = {
-  getDom,
+  getElementById,
   toggleFullScreen,
   audioElement,
   canvasElement,
