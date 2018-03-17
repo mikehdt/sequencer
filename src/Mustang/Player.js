@@ -60,6 +60,18 @@ function Player() {
     pauseAudio(audioEl);
   };
 
+  const checkPause = (e) => {
+    if (audioEl && e.key && e.key === ' ') {
+      const { paused } = audioEl;
+
+      if (paused) {
+        play();
+      } else {
+        pause();
+      }
+    }
+  };
+
   const tick = (currentFrameTime) => {
     if (audioEl) {
       const {
@@ -99,11 +111,13 @@ function Player() {
 
     audio.removeEventListener('play', play);
     audio.removeEventListener('pause', pause);
+    window.removeEventListener('keyup', checkPause);
   };
 
   const setAudioHandlers = (audio) => {
     audio.addEventListener('play', play);
     audio.addEventListener('pause', pause);
+    window.addEventListener('keyup', checkPause);
   };
 
   const clearAudio = (newAudioEl = null) => {

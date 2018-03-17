@@ -22,8 +22,8 @@ const {
 
 const dom = helpers.getElementById(DOM_ID);
 
-assets.add(CANVAS, helpers.canvasElement({ className: styles.leCanvas }));
-assets.add(AUDIO, helpers.audioElement(audioFile, styles.audio));
+assets.add(CANVAS, helpers.canvasElement({ width: 320, height: 180, className: styles.leCanvas }));
+assets.add(AUDIO, helpers.audioElement({ audioFile, volume: 0.15, className: styles.audio }));
 
 player.setAudio(assets.getData(AUDIO));
 

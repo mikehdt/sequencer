@@ -15,7 +15,7 @@ export const EFFECTS = 'effects';
 
 // -----
 
-// Notes / Todo:
+// TODO / Notes:
 // * Add base effect type that custom effects can extend?
 // * Add a way to preload assets
 // * Sort out the helpers
