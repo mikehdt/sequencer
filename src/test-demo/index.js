@@ -1,4 +1,4 @@
-import { Mustang, helpers } from '../Mustang';
+import { Sequencer, helpers } from '../Sequencer';
 import audioFile from './assets/song.mp3';
 import styles from '../styles/index.scss';
 
@@ -11,14 +11,14 @@ const CANVAS = 'canvas';
 const AUDIO = 'audio';
 
 // Player
-const mustang = new Mustang();
+const sequencer = new Sequencer();
 
 const {
   player,
   timeline,
   assets,
   effects,
-} = mustang;
+} = sequencer;
 
 const dom = helpers.getElementById(DOM_ID);
 

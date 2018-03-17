@@ -23,7 +23,7 @@ export const EFFECTS = 'effects';
 // * Modifier curves that change the timeline pass-through values?
 // * Force update of Store key notifier?
 
-function Mustang() {
+function Sequencer() {
   createStore();
 
   const player = new Player();
@@ -46,4 +46,4 @@ const helpers = {
   canvasElement,
 };
 
-export { Mustang, helpers };
+export { Sequencer, helpers };
