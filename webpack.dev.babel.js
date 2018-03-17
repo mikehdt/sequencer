@@ -3,7 +3,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin';
 
 module.exports = {
   mode: 'development',
-  devtool: 'eval-cheap-module-source-map',
+  // devtool: 'eval-cheap-module-source-map',
+  devtool: 'source-map',
   entry: './src/index.js',
   devServer: {
     port: 8080,
@@ -22,12 +23,7 @@ module.exports = {
       {
         test: /\.(scss|css)$/,
         use: [
-          {
-            loader: 'style-loader',
-            options: {
-              sourceMap: true,
-            },
-          },
+          'style-loader',
           {
             loader: 'css-loader',
             options: {
@@ -36,14 +32,7 @@ module.exports = {
               localIdentName: '[name]-[local]-[hash:base64:5]',
             },
           },
-          {
-            loader: 'sass-loader',
-            options: {
-              outputStyle: 'expanded',
-              sourceMap: true,
-              sourceMapContents: true,
-            },
-          },
+          'sass-loader',
         ],
       },
       {

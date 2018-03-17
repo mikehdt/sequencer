@@ -11,7 +11,7 @@
     "lint:js": "eslint \"./src/**/*.js\" --fix",
     "lint:css": "stylelint \"src/**/*.{css,less,scss}\" --fix",
     "jest": "jest",
-    "start": "webpack-dev-server --progress --open --config webpack.dev.babel.js",
+    "start": "webpack-dev-server --progress --config webpack.dev.babel.js",
     "build": "webpack --progress --config webpack.prod.babel.js"
   },
   "dependencies": {

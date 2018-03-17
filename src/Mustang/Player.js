@@ -2,6 +2,7 @@ import { connectStore } from './Store';
 
 // Action types
 export const CURRENT_TIME = 'player/current_time';
+const MILLISECONDS = 1000;
 
 // Reducers
 const defaultState = {
@@ -32,6 +33,10 @@ const syncAudioTime = (audio, time = 0) => { audio.currentTime = time; };
 function Player() {
   const store = connectStore();
   let audioEl = null;
+  const prevTime = {
+    audio: 0,
+    frame: 0,
+  };
 
   const getState = () => store.get(PLAYER);
 
@@ -55,14 +60,34 @@ function Player() {
     pauseAudio(audioEl);
   };
 
-  const tick = (runTime) => {
-    // Firefox doesn't update audio.currentTime at 60fps, so it animates much
-    // slower visually, at around 20fps. Need to use rAF time delta to mitigate
-    const currentTime = timeDelta / 1000;
+  const tick = (currentFrameTime) => {
     if (audioEl) {
-      const { currentTime } = audioEl;
+      const {
+        currentTime: currentAudioTime,
+        paused,
+      } = audioEl;
 
-      setCurrentTime(currentTime);
+      const {
+        audio: prevAudioTime,
+        frame: prevFrameTime,
+      } = prevTime;
+
+      const isPlaying = !paused;
+
+      if (isPlaying && currentAudioTime === prevAudioTime) {
+        // Firefox doesn't update audio.currentTime at 60fps, so it animates
+        // much more slowly, at around 20fps. Need to use rAF time delta to
+        // mitigate. See: https://bugzilla.mozilla.org/show_bug.cgi?id=587465
+        const frameDelta = (currentFrameTime - prevFrameTime) / MILLISECONDS;
+        setCurrentTime(currentAudioTime + frameDelta);
+      } else if (currentAudioTime !== prevAudioTime || currentFrameTime !== prevFrameTime) {
+        // Only update previous tick if the audio has also ticked, or if the
+        // frame head has been moved
+        prevTime.audio = currentAudioTime;
+        prevTime.frame = currentFrameTime;
+        setCurrentTime(currentAudioTime);
+      }
+
       requestAnimationFrame(tick);
     }
   };

@@ -1,5 +1,4 @@
 import path from 'path';
-
 import cssnano from 'cssnano';
 import CleanWebpackPlugin from 'clean-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
@@ -21,11 +20,12 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel-loader',
-
-        options: {
-          babelrc: true,
-        },
+        use: [{
+          loader: 'babel-loader',
+          options: {
+            babelrc: true,
+          },
+        }],
       },
       {
         test: /\.(scss|css)$/,
@@ -39,32 +39,19 @@ module.exports = {
               localIdentName: '[hash:base64:5]',
             },
           },
-          {
-            loader: 'postcss-loader',
-            options: {
-              sourceMap: false,
-            },
-          },
-          {
-            loader: 'sass-loader',
-            options: {
-              outputStyle: 'expanded',
-              sourceMap: false,
-            },
-          },
+          'postcss-loader',
+          'sass-loader',
         ],
       },
       {
         test: /\.(png|jpg|gif|mp3)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              name: '[name].[hash:20].[ext]',
-              limit: 8192,
-            },
+        use: [{
+          loader: 'url-loader',
+          options: {
+            name: '[name].[hash:20].[ext]',
+            limit: 8192,
           },
-        ],
+        }],
       },
     ],
   },
