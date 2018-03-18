@@ -1,4 +1,4 @@
 // Add ID constants here?
 
-export { fadeEffect } from './fadeEffect';
-export { testEffect } from './testEffect';
+export { fadeEffect, EFFECT_ID as FADE_EFFECT_ID } from './fadeEffect';
+export { testEffect, EFFECT_ID as TEST_EFFECT_ID } from './testEffect';

@@ -4,12 +4,6 @@ import { Player } from './Player';
 import { Timeline } from './Timeline';
 import { Assets } from './Assets';
 
-// Helpers
-import { getElementById } from './helpers/dom';
-import { toggleFullScreen } from './helpers/fullscreen';
-import { audioElement } from './helpers/audio';
-import { canvasElement } from './helpers/canvas';
-
 export const EFFECTS = 'effects/EFFECTS';
 
 // -----
@@ -21,6 +15,7 @@ export const EFFECTS = 'effects/EFFECTS';
 // * Investigate Store challenges and listeners (Proxy?)
 // * Modifier curves that change the timeline pass-through values?
 // * Force update of Store key notifier?
+// * Try to move some local closure state to store?
 
 function Sequencer() {
   createStore();
@@ -38,11 +33,4 @@ function Sequencer() {
   };
 }
 
-const helpers = {
-  getElementById,
-  toggleFullScreen,
-  audioElement,
-  canvasElement,
-};
-
-export { Sequencer, helpers };
+export { Sequencer };

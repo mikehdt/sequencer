@@ -40,14 +40,14 @@ function Timeline() {
   let prevActiveAnimations = [];
   let prevTime = 0;
 
-  const setAnimation = (props) => {
+  const setAnimation = (props = {}) => {
     const {
       start,
       end,
       layer,
       effectId,
       startParams,
-    } = props || {};
+    } = props;
 
     const Effect = effects.getData(effectId);
 

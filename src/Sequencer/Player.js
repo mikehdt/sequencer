@@ -1,6 +1,9 @@
 import { connectStore } from './Store';
 
 const MILLISECONDS = 1000;
+const EVENT_PLAY = 'play';
+const EVENT_PAUSE = 'pause';
+const EVENT_KEYUP = 'keyup';
 
 export const PLAYER = 'player/PLAYER';
 
@@ -93,9 +96,9 @@ function Player() {
         // mitigate. See: https://bugzilla.mozilla.org/show_bug.cgi?id=587465
         const frameDelta = (currentFrameTime - prevFrameTime) / MILLISECONDS;
         setCurrentTime(currentAudioTime + frameDelta);
-      } else if (currentAudioTime !== prevAudioTime || currentFrameTime !== prevFrameTime) {
+      } else {
         // Only update previous tick if the audio has also ticked, or if the
-        // frame head has been moved
+        // frame head has been moved whilst playing
         prevTime.audio = currentAudioTime;
         prevTime.frame = currentFrameTime;
         setCurrentTime(currentAudioTime);
@@ -110,24 +113,24 @@ function Player() {
       return;
     }
 
-    audio.removeEventListener('play', play);
-    audio.removeEventListener('pause', pause);
-    window.removeEventListener('keyup', checkPause);
+    audio.removeEventListener(EVENT_PLAY, play);
+    audio.removeEventListener(EVENT_PAUSE, pause);
+    window.removeEventListener(EVENT_KEYUP, checkPause);
   };
 
   const setAudioHandlers = (audio) => {
-    audio.addEventListener('play', play);
-    audio.addEventListener('pause', pause);
-    window.addEventListener('keyup', checkPause);
+    audio.addEventListener(EVENT_PLAY, play);
+    audio.addEventListener(EVENT_PAUSE, pause);
+    window.addEventListener(EVENT_KEYUP, checkPause);
   };
 
-  const clearAudio = (newAudioEl = null) => {
+  const changeAudio = (newAudioEl = null) => {
     clearAudioHandlers(audioEl);
     audioEl = newAudioEl;
   };
 
   const setAudio = (newAudioEl) => {
-    clearAudio(newAudioEl);
+    changeAudio(newAudioEl);
     syncAudioTime(audioEl, getCurrentTime());
     setAudioHandlers(audioEl);
     requestAnimationFrame(tick);
@@ -147,7 +150,6 @@ function Player() {
     play,
     pause,
     stop,
-    clearAudio,
     setAudio,
     setTime,
   };
