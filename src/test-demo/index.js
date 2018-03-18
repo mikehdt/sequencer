@@ -9,10 +9,11 @@ import * as fx from './effects';
 const sequencer = new Sequencer();
 
 bootstrapSequence(sequencer, 'root', audioFile, {
-  canvasClass: styles.leCanvas,
+  canvasClass: styles.canvas,
   canvasWidth: 320,
   canvasHeight: 180,
   audioClass: styles.audio,
+  audioVolume: 0.15,
 });
 
 const {

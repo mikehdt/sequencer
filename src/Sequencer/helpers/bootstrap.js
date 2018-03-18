@@ -13,6 +13,7 @@ function bootstrapSequence(sequencer, ROOT_ID, audioFile, {
   canvasWidth = 1280,
   canvasHeight = 720,
   audioClass = '',
+  audioVolume = 1,
 }) {
   const {
     player,
@@ -32,7 +33,7 @@ function bootstrapSequence(sequencer, ROOT_ID, audioFile, {
 
   assets.add(AUDIO, audioElement({
     audioFile,
-    volume: 0.15,
+    volume: audioVolume,
     className: audioClass,
   }));
 
