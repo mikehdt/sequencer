@@ -10,8 +10,7 @@ import { toggleFullScreen } from './helpers/fullscreen';
 import { audioElement } from './helpers/audio';
 import { canvasElement } from './helpers/canvas';
 
-export const ASSETS = 'assets';
-export const EFFECTS = 'effects';
+export const EFFECTS = 'effects/EFFECTS';
 
 // -----
 
@@ -28,8 +27,8 @@ function Sequencer() {
 
   const player = new Player();
   const timeline = new Timeline();
-  const assets = new Assets(ASSETS);
-  const effects = new Assets(EFFECTS);
+  const assets = new Assets();
+  const effects = new Assets();
 
   return {
     player,

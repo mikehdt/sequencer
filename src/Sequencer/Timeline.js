@@ -1,4 +1,7 @@
 import { connectStore } from './Store';
+import { PLAYER } from './Player';
+
+export const TIMELINE = 'timeline/TIMELINE';
 
 const TIMELINE_VERSION = 1;
 
@@ -18,7 +21,8 @@ const splitActiveAndFinished = (animations, time) => (
         ...acc.isFinished,
         item,
       ],
-    } : {
+    }
+    : {
       ...acc,
       isActive: [
         ...acc.isActive,
@@ -120,7 +124,7 @@ function Timeline() {
   };
 
   const subscribeToPlayer = () => {
-    store.subscribe({ watch: 'player', key: 'currentTime', watchFn: update });
+    store.subscribe({ watch: PLAYER, key: 'currentTime', watchFn: update });
   };
 
   const parseData = (newData, currentAssets, currentEffects) => {

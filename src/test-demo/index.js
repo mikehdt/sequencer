@@ -3,8 +3,8 @@ import audioFile from './assets/song.mp3';
 import styles from '../styles/index.scss';
 
 import * as fx from './effects';
-import { FADE_EFFECT_ID } from './effects/fadeEffect';
-import { TEST_EFFECT_ID } from './effects/testEffect';
+import { EFFECT_ID as FADE_EFFECT_ID } from './effects/fadeEffect';
+import { EFFECT_ID as TEST_EFFECT_ID } from './effects/testEffect';
 
 const DOM_ID = 'root';
 const CANVAS = 'canvas';

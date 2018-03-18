@@ -36,7 +36,8 @@ function createStore(initialState = {}) {
       return store[element];
     }
 
-    console.warn(`Store key "${element}" hasn't been set.`); // eslint-disable-line no-console
+    // eslint-disable-next-line no-console
+    console.warn(`Store key "${element}" hasn't been set.`);
     return null;
   };
 
@@ -121,13 +122,23 @@ function createStore(initialState = {}) {
   return global.store;
 }
 
-function connectStore() {
-  if (global.store) {
-    return global.store;
+function connectStore(storeKey = '') {
+  if (!global.store) {
+    // eslint-disable-next-line no-console
+    console.error("Can't connect to store, store hasn't been initialised.");
+    return {};
   }
 
-  console.error("Can't connect to store, store hasn't been initialised."); // eslint-disable-line no-console
-  return {};
+  if (storeKey) {
+    // Compose in the storeKey as part of the closure
+    return {
+      ...global.store,
+      set: newState => global.store.set(storeKey, newState),
+      get: () => global.store.get(storeKey),
+    };
+  }
+
+  return global.store;
 }
 
 export {

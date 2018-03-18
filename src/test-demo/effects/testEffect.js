@@ -1,4 +1,4 @@
-export const TEST_EFFECT_ID = 'testEffect';
+export const EFFECT_ID = 'testEffect';
 
 function testEffect() {
   const needs = [

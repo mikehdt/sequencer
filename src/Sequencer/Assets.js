@@ -1,14 +1,16 @@
 import { connectStore } from './Store';
 
+export const ASSETS = 'assets/ASSETS';
+
 // Action types
-export const ADD_ASSET = 'assets/add';
+export const ADD = 'assets/ADD';
 
 // Reducers
 const defaultState = [];
 
 export const reduceState = (state = defaultState, action = {}) => {
   switch (action.type) {
-    case ADD_ASSET: {
+    case ADD: {
       return [
         ...state,
         {
@@ -25,23 +27,23 @@ export const reduceState = (state = defaultState, action = {}) => {
   }
 };
 
-function Assets(storeKey) {
+function Assets(storeKey = ASSETS) {
   if (!storeKey) {
     console.error('A key is required to create a new Assets list.'); // eslint-disable-line no-console
     return {};
   }
 
-  const store = connectStore();
+  const store = connectStore(storeKey);
 
-  const getState = () => store.get(storeKey);
+  const getState = () => store.get();
 
   const setState = (newState) => {
-    store.set(storeKey, newState);
+    store.set(newState);
   };
 
   const add = (id, data) => {
     setState(reduceState(getState(), {
-      type: ADD_ASSET,
+      type: ADD,
       id,
       data,
     }));

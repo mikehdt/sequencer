@@ -1,4 +1,4 @@
-export const FADE_EFFECT_ID = 'fadeEffect';
+export const EFFECT_ID = 'fadeEffect';
 
 function fadeEffect() {
   const needs = [

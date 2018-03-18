@@ -1,8 +1,11 @@
 import { connectStore } from './Store';
 
-// Action types
-export const CURRENT_TIME = 'player/current_time';
 const MILLISECONDS = 1000;
+
+export const PLAYER = 'player/PLAYER';
+
+// Action types
+export const CURRENT_TIME = 'player/CURRENT_TIME';
 
 // Reducers
 const defaultState = {
@@ -24,23 +27,21 @@ export const reduceState = (state = defaultState, action = {}) => {
   }
 };
 
-export const PLAYER = 'player';
-
 const playAudio = audio => audio && audio.play();
 const pauseAudio = audio => audio && audio.pause();
 const syncAudioTime = (audio, time = 0) => { audio.currentTime = time; };
 
 function Player() {
-  const store = connectStore();
+  const store = connectStore(PLAYER);
   let audioEl = null;
   const prevTime = {
     audio: 0,
     frame: 0,
   };
 
-  const getState = () => store.get(PLAYER);
+  const getState = () => store.get();
 
-  const setState = newState => store.set(PLAYER, newState);
+  const setState = newState => store.set(newState);
 
   const getCurrentTime = () => getState().currentTime;
 
