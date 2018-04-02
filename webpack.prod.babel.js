@@ -12,7 +12,7 @@ module.exports = {
   mode: 'production',
   entry: './src/index.js',
   output: {
-    filename: '[name].[hash:20].js',
+    filename: '[name].[contenthash:8].js',
     path: buildPath,
   },
   module: {
@@ -36,7 +36,7 @@ module.exports = {
             options: {
               sourceMap: false,
               modules: true,
-              localIdentName: '[hash:base64:5]',
+              localIdentName: '[contenthash:8]',
             },
           },
           'postcss-loader',
@@ -48,7 +48,7 @@ module.exports = {
         use: [{
           loader: 'url-loader',
           options: {
-            name: '[name].[hash:20].[ext]',
+            name: '[name].[hash:8].[ext]',
             limit: 8192,
           },
         }],
@@ -70,7 +70,7 @@ module.exports = {
       },
     }),
     new MiniCssExtractPlugin({
-      filename: 'styles.[name].[chunkhash:5].css',
+      filename: 'styles.[name].[contenthash:8].css',
       chunkFilename: 'styles.[id].css',
     }),
     new OptimizeCssAssetsPlugin({
