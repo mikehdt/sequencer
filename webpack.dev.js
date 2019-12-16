@@ -1,5 +1,5 @@
-import path from 'path';
-import HtmlWebpackPlugin from 'html-webpack-plugin';
+const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
   mode: 'development',
@@ -16,9 +16,6 @@ module.exports = {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader',
-        options: {
-          babelrc: true,
-        },
       },
       {
         test: /\.(scss|css)$/,
@@ -28,8 +25,9 @@ module.exports = {
             loader: 'css-loader',
             options: {
               sourceMap: true,
-              modules: true,
-              localIdentName: '[name]-[local]-[hash:base64:5]',
+              modules: {
+                localIdentName: '[name]-[local]-[hash:base64:5]',
+              },
             },
           },
           'sass-loader',

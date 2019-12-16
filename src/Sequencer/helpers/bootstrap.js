@@ -2,6 +2,7 @@ import { canvasElement } from './canvas';
 import { audioElement } from './audio';
 import { toggleFullScreen } from './fullscreen';
 
+// !!! Some of these may need to be extracted to Sequencer
 const CANVAS = 'canvas';
 const AUDIO = 'audio';
 const DOM = 'dom';
