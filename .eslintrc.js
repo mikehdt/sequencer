@@ -1,11 +1,11 @@
 module.exports = {
   parserOptions: {
     ecmaVersion: '2019',
-    sourceType: 'module'
+    sourceType: 'module',
   },
   env: {
     browser: true,
-    jest: true
+    jest: true,
   },
   extends: ['eslint:recommended', 'airbnb-base'],
   rules: {
@@ -13,8 +13,8 @@ module.exports = {
       'error',
       2,
       {
-        SwitchCase: 1
-      }
+        SwitchCase: 1,
+      },
     ],
     'space-infix-ops': ['error'],
     'import/prefer-default-export': 'off',
@@ -22,8 +22,8 @@ module.exports = {
       'error',
       {
         props: true,
-        ignorePropertyModificationsFor: ['audio']
-      }
-    ]
-  }
+        ignorePropertyModificationsFor: ['audio'],
+      },
+    ],
+  },
 };
