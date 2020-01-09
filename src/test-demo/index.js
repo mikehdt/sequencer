@@ -16,11 +16,7 @@ bootstrapSequence(sequencer, 'root', audioFile, {
   audioVolume: 0.15,
 });
 
-const {
-  timeline,
-  assets,
-  effects,
-} = sequencer;
+const { timeline, assets, effects } = sequencer;
 
 effects.add(fx.FADE_EFFECT_ID, fx.fadeEffect);
 effects.add(fx.TEST_EFFECT_ID, fx.testEffect);

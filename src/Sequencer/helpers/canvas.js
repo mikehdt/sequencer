@@ -13,7 +13,6 @@ function canvasElement({ width = 1280, height = 720, className = '' } = {}) {
 
 export { canvasElement };
 
-
 // const resize = () => {
 //   console.log('canvas was resized I guess');
 // };

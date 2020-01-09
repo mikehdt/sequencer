@@ -32,27 +32,27 @@ function Assets() {
 
   const getState = () => store.get();
 
-  const setState = (newState) => {
+  const setState = newState => {
     store.set(newState);
   };
 
   const add = (id, data) => {
-    setState(reduceState(getState(), {
-      type: ADD,
-      id,
-      data,
-    }));
+    setState(
+      reduceState(getState(), {
+        type: ADD,
+        id,
+        data,
+      }),
+    );
   };
 
-  const get = id => (
-    getState().find(item => item.id === id)
-    || console.warn(`Can't find ${ASSETS} with ID "${id}"`) // eslint-disable-line no-console
-  );
+  const get = id =>
+    getState().find(item => item.id === id) ||
+    console.warn(`Can't find ${ASSETS} with ID "${id}"`); // eslint-disable-line no-console
 
-  const getData = id => (
-    getState().find(item => item.id === id).data
-    || console.warn(`Can't find data for ${ASSETS} with ID "${id}"`) // eslint-disable-line no-console
-  );
+  const getData = id =>
+    getState().find(item => item.id === id).data ||
+    console.warn(`Can't find data for ${ASSETS} with ID "${id}"`); // eslint-disable-line no-console
 
   const list = () => getState();
 

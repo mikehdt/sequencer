@@ -32,7 +32,9 @@ export const reduceState = (state = defaultState, action = {}) => {
 
 const playAudio = audio => audio && audio.play();
 const pauseAudio = audio => audio && audio.pause();
-const syncAudioTime = (audio, time = 0) => { audio.currentTime = time; };
+const syncAudioTime = (audio, time = 0) => {
+  audio.currentTime = time;
+};
 
 function Player() {
   const store = connectStore(PLAYER);
@@ -48,11 +50,13 @@ function Player() {
 
   const getCurrentTime = () => getState().currentTime;
 
-  const setCurrentTime = (time) => {
-    setState(reduceState(getState(), {
-      type: CURRENT_TIME,
-      time,
-    }));
+  const setCurrentTime = time => {
+    setState(
+      reduceState(getState(), {
+        type: CURRENT_TIME,
+        time,
+      }),
+    );
   };
 
   const play = () => playAudio(audioEl);
@@ -64,7 +68,7 @@ function Player() {
     pauseAudio(audioEl);
   };
 
-  const checkPause = (e) => {
+  const checkPause = e => {
     if (audioEl && e.key && e.key === ' ') {
       const { paused } = audioEl;
 
@@ -76,17 +80,11 @@ function Player() {
     }
   };
 
-  const tick = (currentFrameTime) => {
+  const tick = currentFrameTime => {
     if (audioEl) {
-      const {
-        currentTime: currentAudioTime,
-        paused,
-      } = audioEl;
+      const { currentTime: currentAudioTime, paused } = audioEl;
 
-      const {
-        audio: prevAudioTime,
-        frame: prevFrameTime,
-      } = prevTime;
+      const { audio: prevAudioTime, frame: prevFrameTime } = prevTime;
 
       const isPlaying = !paused;
 
@@ -108,7 +106,7 @@ function Player() {
     }
   };
 
-  const clearAudioHandlers = (audio) => {
+  const clearAudioHandlers = audio => {
     if (!audio) {
       return;
     }
@@ -118,7 +116,7 @@ function Player() {
     window.removeEventListener(EVENT_KEYUP, checkPause);
   };
 
-  const setAudioHandlers = (audio) => {
+  const setAudioHandlers = audio => {
     audio.addEventListener(EVENT_PLAY, play);
     audio.addEventListener(EVENT_PAUSE, pause);
     window.addEventListener(EVENT_KEYUP, checkPause);
@@ -129,14 +127,14 @@ function Player() {
     audioEl = newAudioEl;
   };
 
-  const setAudio = (newAudioEl) => {
+  const setAudio = newAudioEl => {
     changeAudio(newAudioEl);
     syncAudioTime(audioEl, getCurrentTime());
     setAudioHandlers(audioEl);
     requestAnimationFrame(tick);
   };
 
-  const setTime = (time) => {
+  const setTime = time => {
     setCurrentTime(time);
 
     if (audioEl) {

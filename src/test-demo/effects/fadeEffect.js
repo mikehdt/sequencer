@@ -1,9 +1,7 @@
 export const EFFECT_ID = 'fadeEffect';
 
 function fadeEffect() {
-  const needs = [
-    'canvas',
-  ];
+  const needs = ['canvas'];
 
   let assets = {};
 
@@ -16,16 +14,13 @@ function fadeEffect() {
     assets.ctx = assets.canvas.getContext('2d');
   };
 
-  const update = (progress) => {
+  const update = progress => {
     const {
       ctx,
-      canvas: {
-        width,
-        height,
-      },
+      canvas: { width, height },
     } = assets;
 
-    const fade = (1 - progress.unitInterval);
+    const fade = 1 - progress.unitInterval;
     parameters.color = `rgba(255,255,255, ${fade})`;
 
     ctx.save();
@@ -33,7 +28,6 @@ function fadeEffect() {
     ctx.fillRect(0, 0, width, height);
     ctx.restore();
   };
-
 
   return {
     needs,

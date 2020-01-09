@@ -19,13 +19,13 @@ const splitActiveAndFinished = (animations, time) =>
       item.start > time || item.end <= time
         ? {
             ...acc,
-            isFinished: [...acc.isFinished, item]
+            isFinished: [...acc.isFinished, item],
           }
         : {
             ...acc,
-            isActive: [...acc.isActive, item]
+            isActive: [...acc.isActive, item],
           },
-    { isFinished: [], isActive: [] }
+    { isFinished: [], isActive: [] },
   );
 
 function Timeline() {
@@ -53,7 +53,7 @@ function Timeline() {
       end,
       layer,
       effect,
-      startParams
+      startParams,
     };
 
     return animationData;
@@ -64,7 +64,7 @@ function Timeline() {
       item =>
         item.start <= time &&
         item.end > time &&
-        !prevActiveAnimations.includes(item)
+        !prevActiveAnimations.includes(item),
     );
 
     const splitAnimations = splitActiveAndFinished(prevActiveAnimations, time);
@@ -73,21 +73,21 @@ function Timeline() {
 
     // Call effect constructors / destructors if they exist
     isFinished.forEach(
-      item => item.effect && item.effect.end && item.effect.end()
+      item => item.effect && item.effect.end && item.effect.end(),
     );
 
     isNew.forEach(item => {
       const neededAssets = assets
         .list()
         .filter(
-          asset => item.effect.needs && item.effect.needs.includes(asset.id)
+          asset => item.effect.needs && item.effect.needs.includes(asset.id),
         )
         .reduce(
           (acc, asset) => ({
             ...acc,
-            [asset.id]: asset.data
+            [asset.id]: asset.data,
           }),
-          {}
+          {},
         );
 
       return (
@@ -95,7 +95,7 @@ function Timeline() {
         item.effect.start &&
         item.effect.start({
           startParams: item.startParams || {},
-          neededAssets
+          neededAssets,
         })
       );
     });
@@ -104,7 +104,7 @@ function Timeline() {
 
     const commonTimeOffsets = {
       absolute: time,
-      frameDelta: time - prevTime
+      frameDelta: time - prevTime,
     };
 
     activeAnimations.forEach(
@@ -113,8 +113,8 @@ function Timeline() {
         item.effect.update({
           ...commonTimeOffsets,
           relative: time - item.start,
-          unitInterval: (time - item.start) / (item.end - item.start)
-        })
+          unitInterval: (time - item.start) / (item.end - item.start),
+        }),
     );
 
     prevActiveAnimations = activeAnimations;
@@ -145,7 +145,7 @@ function Timeline() {
 
   return {
     parseData,
-    update
+    update,
   };
 }
 
