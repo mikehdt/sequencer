@@ -10,8 +10,8 @@ function testEffect() {
     speed: 1,
   };
 
-  const mergeStartParams = startParams => {
-    Object.keys(startParams).forEach(key => {
+  const mergeStartParams = (startParams) => {
+    Object.keys(startParams).forEach((key) => {
       parameters[key] = startParams[key];
     });
   };
@@ -23,7 +23,7 @@ function testEffect() {
     mergeStartParams(startParams);
   };
 
-  const update = progress => {
+  const update = (progress) => {
     const { ctx } = assets;
     const { width, height } = ctx.canvas;
 

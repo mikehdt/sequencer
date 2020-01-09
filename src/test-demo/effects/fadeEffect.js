@@ -14,7 +14,7 @@ function fadeEffect() {
     assets.ctx = assets.canvas.getContext('2d');
   };
 
-  const update = progress => {
+  const update = (progress) => {
     const {
       ctx,
       canvas: { width, height },
